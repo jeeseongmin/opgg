@@ -50,4 +50,5 @@ opgg 웹사이트 클론
 ### 레퍼런스
 
 - React에 scss 적용 : https://codingmania.tistory.com/339
-- React에 zustand 적용 : https://jforj.tistory.com/341
+- React에 zustand 적용 : https://jforj.tistory.com/3
+- React에 prettier 적용 : https://ripley21.com/intellij-webstorm-prettier-%EC%84%A4%EC%A0%95/
