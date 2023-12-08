@@ -1,0 +1,244 @@
+@import "src/index.scss";
+
+.homeWrapper {
+  height: 100%;
+  background-color: $main-blue;
+}
+
+.home {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  width: 1080px;
+}
+
+.logoWrapper {
+  margin: 56px 0 46px;
+
+  img {
+    display: block;
+    max-height: 224px;
+    margin: 0 auto;
+  }
+}
+
+.searchComponentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  & > div:first-of-type {
+    position: relative;
+  }
+
+  .searchForm {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background-color: white;
+    border-radius: 30px;
+    height: 60px;
+    text-align: left;
+
+    .label {
+      margin-bottom: 4px;
+      font-size: 12px;
+      line-height: 16px;
+      color: $black;
+      font-style: normal;
+      display: block;
+      font-weight: bold;
+    }
+
+    label + input {
+      background: $white;
+      position: relative;
+      width: 480px;
+      border: 0;
+      box-sizing: border-box;
+      font-size: 14px;
+      line-height: 20px;
+      color: $black;
+    }
+
+    & > div:first-of-type {
+      padding-left: 32px;
+      padding-right: 8px;
+      margin-right: 16px;
+    }
+
+    & > div {
+      position: relative;
+      height: 40px;
+    }
+
+    & > .small, & > .label {
+      display: block;
+      font-size: 12px;
+      line-height: 16px;
+      color: $black;
+      font-style: normal;
+    }
+  }
+}
+
+.searchForm {
+  .searchRegionContainer {
+    font-size: 12px;
+    line-height: 16px;
+    position: absolute;
+    visibility: hidden;
+    display: block;
+    width: 194px;
+
+
+    select {
+      border-radius: 0px;
+      apperance: none;
+      background: white;
+      border: none;
+      vertical-align: middle;
+
+      option {
+        font-weight: normal;
+        display: block;
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .searchRegionBtnWrapper {
+    position: relative;
+    vertical-align: middle;
+    display: block;
+    width: 194px;
+
+    .searchRegionBtn {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      border-radius: 4px;
+      text-align: left;
+      box-sizing: border-box;
+      background: $white;
+      cursor: pointer;
+
+      span {
+        font-size: 14px;
+        line-height: 20px;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      &:after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        right: 15px;
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        margin-top: -2.5px;
+        border-top-color: $gray;
+      }
+    }
+
+    & > div > button {
+      padding: 0;
+      height: auto;
+      color: $gray;
+      width: 100%;
+      border: 0 none;
+
+    }
+
+    & > div > button img {
+      display: none;
+    }
+
+    & > div > button > * {
+      color: inherit;
+    }
+
+    img {
+      border: 0px;
+      vertical-align: middle;
+      max-width: 100%;
+    }
+  }
+}
+
+.searchForm {
+  .searchNameWrapper {
+    flex: 1;
+
+    & > div {
+      position: relative;
+      height: 40px;
+    }
+
+
+  }
+
+  .custom-placeholder {
+    font-size: 14px;
+    height: 20px;
+    left: 0;
+    bottom: 0;
+    color: $gray;
+  }
+
+  .searchNameLabel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: inherit;
+    z-index: 1;
+    line-height: 16px;
+
+    .custom-placeholder-tag {
+      background-color: $light-gray;
+      padding: 2px 4px;
+      border-radius: 4px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+
+
+}
+
+.searchForm {
+  & > button {
+    padding-right: 12px;
+    padding-left: 12px;
+    height: 100%;
+  }
+
+  .gg-btn {
+    background-image: url("https://s-lol-web.op.gg/images/icon/icon-gg.svg");
+    background-repeat: no-repeat;
+    -webkit-background-size: 42px;
+    background-size: 42px;
+    -webkit-background-position: 12px center;
+    background-position: 12px center;
+    width: 42px;
+    font-size: 0;
+    box-sizing: content-box;
+  }
+}
