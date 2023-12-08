@@ -1,0 +1,23 @@
+$main-blue: #5383E8;
+$light-blue: #B3CDFF;
+$purple: #4171D6;
+$white: #fff;
+$yellow: #FFB900;
+
+html, body {
+  font-family: "Apple SD Gothic Neo", '__Roboto_2d0052', '__Roboto_Fallback_2d0052', sans-serif, system-ui, sans-serif;
+  width: auto;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+#root {
+  width: auto;
+  height: inherit;
+}
