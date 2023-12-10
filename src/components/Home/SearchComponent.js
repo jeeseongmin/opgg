@@ -8,7 +8,7 @@ const SearchComponent = () => {
           <div>
             <small className={'label'}>지역</small>
             <div className={'searchRegionContainer'}>
-              <label class={'hidden'} for={'kr'}>kr</label>
+              <label className={'hidden'} for={'kr'}>kr</label>
               <select id='kr'>
                 <option value='na'>NA</option>
                 <option value='euw'>EUW</option>
@@ -30,7 +30,7 @@ const SearchComponent = () => {
             </div>
             <div className={'searchRegionBtnWrapper'}>
               <div>
-                <button type={'button'} class={'searchRegionBtn'}>
+                <button type={'button'} className={'searchRegionBtn'}>
                   <img src='https://s-lol-web.op.gg/assets/images/regions/01-icon-icon-kr.svg?v=1700641403304'
                        width='24' height='24' alt='' />
                   <span>Korea</span>
