@@ -8,7 +8,7 @@ const SearchComponent = () => {
           <div>
             <small className={'label'}>지역</small>
             <div className={'searchRegionContainer'}>
-              <label className={'hidden'} for={'kr'}>kr</label>
+              <label className={'hidden'} htmlFor={'kr'}>kr</label>
               <select id='kr'>
                 <option value='na'>NA</option>
                 <option value='euw'>EUW</option>
@@ -41,7 +41,7 @@ const SearchComponent = () => {
           <div className={'searchNameWrapper'}>
             <label htmlFor={'searchHome'} className={'label'}>검색</label>
             <input id={'searchHome'} name={'search'} autoComplete='off' type={'text'} disabled />
-            <label for={'searchHome'} className={'searchNameLabel custom-placeholder'}>
+            <label htmlFor={'searchHome'} className={'searchNameLabel custom-placeholder'}>
               <span className={'custom-placeholder-name'}>플레이어 이름 +</span>
               <span className={'custom-placeholder-tag'}>#KR1</span>
             </label>

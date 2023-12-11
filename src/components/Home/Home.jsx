@@ -11,7 +11,6 @@ const Home = () => {
         <SearchComponent />
       </div>
     </div>
-  
   );
 };
 

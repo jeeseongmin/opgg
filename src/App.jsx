@@ -1,3 +1,4 @@
+import React from 'react';
 import 'App.scss';
 import 'normalize.scss';
 import Header from 'components/Header/Header';
