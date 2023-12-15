@@ -52,3 +52,5 @@ opgg 웹사이트 클론
 - React에 scss 적용 : https://codingmania.tistory.com/339
 - React에 zustand 적용 : https://jforj.tistory.com/3
 - React에 prettier 적용 : https://ripley21.com/intellij-webstorm-prettier-%EC%84%A4%EC%A0%95/
+- prettier 옵션
+  설명 : https://pstudio411.tistory.com/entry/%EC%95%84-%EB%B3%B4%EA%B8%B0-%EC%A2%8B%EC%9D%80-%EC%BD%94%EB%93%9C%EB%8B%A4-Prettier-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0
