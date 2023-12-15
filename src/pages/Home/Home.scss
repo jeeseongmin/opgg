@@ -1,15 +1,18 @@
-@import "src/index.scss";
+@import "../../styles/index";
 
 .homeWrapper {
   height: 100%;
   background-color: $main-blue;
+  min-width: 1080px;
+  padding: 0px 12px;
+
 }
 
 .home {
   display: block;
   margin: 0 auto;
   height: 100%;
-  width: 1080px;
+  //width: 1080px;
 }
 
 .logoWrapper {
