@@ -1,7 +1,7 @@
 import React from 'react';
 import 'pages/Home/Home.scss';
 import MainLogo from 'components/Home/MainLogo';
-import SearchComponent from 'components/Home/SearchComponent';
+import SearchComponent from 'components/Home/Search/SearchComponent';
 
 const Index = () => {
 	return (

@@ -17,6 +17,7 @@ const SearchComponent = () => {
 			getPreviewList();
 		} else {
 			setSummonerList([]);
+			setChampionList([]);
 		}
 	}, [searchText]);
 	
