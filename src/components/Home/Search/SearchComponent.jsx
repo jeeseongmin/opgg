@@ -88,9 +88,9 @@ const SearchComponent = () => {
 						<label htmlFor={'searchText'} className={'label'}>검색</label>
 						<input id={'searchText'} name={'searchText'} autoComplete={'off'} type={'text'} onChange={onChange}
 									 onKeyPress={onKeyPress} />
-						<label ref={labelRef} htmlFor={'searchText'} className={'searchNameLabel custom-placeholder'}>
-							<span className={'custom-placeholder-name'}>플레이어 이름 +</span>
-							<span className={'custom-placeholder-tag'}>#KR1</span>
+						<label ref={labelRef} htmlFor={'searchText'} className={'searchNameLabel customPlaceholder'}>
+							<span className={'customPlaceholderName'}>플레이어 이름 +</span>
+							<span className={'customPlaceholderTag'}>#KR1</span>
 						</label>
 						
 						{(summonerList.length > 0 || championList.length > 0) &&
@@ -123,7 +123,7 @@ const SearchComponent = () => {
 								}
 							</div>}
 					</div>
-					<button className='gg-btn' onClick={searchSummoner}>.GG</button>
+					<button className='ggBtn' onClick={searchSummoner}>.GG</button>
 				</div>
 			</div>
 		</div>

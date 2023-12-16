@@ -263,7 +263,7 @@
 
   }
 
-  .custom-placeholder {
+  .customPlaceholder {
     font-size: 14px;
     height: 20px;
     left: 0;
@@ -280,7 +280,7 @@
     z-index: 1;
     line-height: 16px;
 
-    .custom-placeholder-tag {
+    .customPlaceholderTag {
       background-color: $light-gray;
       padding: 2px 4px;
       border-radius: 4px;
@@ -302,7 +302,7 @@
     height: 100%;
   }
 
-  .gg-btn {
+  .ggBtn {
     background-image: url("https://s-lol-web.op.gg/images/icon/icon-gg.svg");
     background-repeat: no-repeat;
     -webkit-background-size: 42px;
