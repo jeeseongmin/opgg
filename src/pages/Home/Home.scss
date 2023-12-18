@@ -1,11 +1,11 @@
-@import "../../styles/index";
+@import "/src/styles/index";
 
 .homeWrapper {
   height: 100%;
   background-color: $main-blue;
+  border: 1px solid $purple;
   min-width: 1080px;
   padding: 0px 12px;
-
 }
 
 .home {
@@ -216,6 +216,7 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
+        color: $black;
 
         &:hover {
           background-color: $light-gray;
