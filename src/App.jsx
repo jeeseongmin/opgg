@@ -15,7 +15,7 @@ function App() {
 				<Banner />
 				<Routes>
 					<Route path={'/'} element={<Index />}></Route>
-					<Route path={'/summoners/:summonerName'} element={<Summoner />}></Route>
+					<Route path={'/summoners/:fullName'} element={<Summoner />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</div>
