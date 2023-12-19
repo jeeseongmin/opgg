@@ -56,3 +56,5 @@ opgg 웹사이트 클론
 - React에 prettier 적용 : https://ripley21.com/intellij-webstorm-prettier-%EC%84%A4%EC%A0%95/
 - prettier 옵션
   설명 : https://pstudio411.tistory.com/entry/%EC%95%84-%EB%B3%B4%EA%B8%B0-%EC%A2%8B%EC%9D%80-%EC%BD%94%EB%93%9C%EB%8B%A4-Prettier-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0
+- 롤 관련 각종
+  이미지 : https://velog.io/@junhok82/RIOT-API%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-%EB%A1%A4-%EC%A0%84%EC%A0%81-%EA%B2%80%EC%83%89-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-4-%ED%99%94%EB%A9%B4-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%A1%9C%EC%A7%81-%EA%B5%AC%EC%84%B11
