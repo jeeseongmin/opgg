@@ -121,8 +121,14 @@ const SearchComponent = () => {
 											</p>
 										</div>
 										<div className={'previewList'}>
-											{summonerList.map((data, index) => {
-												return <SummonerPreviewRow key={index} data={data} />;
+											{summonerList.map((summoner, index) => {
+												console.log(summoner);
+												return (
+													<SummonerPreviewRow
+														key={summoner.id}
+														data={summoner}
+													/>
+												);
 											})}
 										</div>
 									</>
@@ -135,11 +141,11 @@ const SearchComponent = () => {
 											</p>
 										</div>
 										<div className={'previewList'}>
-											{championList.map((data, index) => {
+											{championList.map((champion, index) => {
 												return (
 													<ChampionPreviewRow
-														key={index}
-														data={ChampionService.getChampionInfo(data)}
+														key={champion}
+														data={ChampionService.getChampionInfo(champion)}
 													/>
 												);
 											})}

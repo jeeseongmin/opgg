@@ -16,8 +16,8 @@ const ChampionPreviewRow = ({data}) => {
 					<span className={'gameName'}>{name}</span>
 				</p>
 				<p>
-					{tags.map((element, index) => (
-						<span key={index}>{element} </span>
+					{tags.map((tag, index) => (
+						<span key={tag}>{tag} </span>
 					))}
 				</p>
 			</div>
