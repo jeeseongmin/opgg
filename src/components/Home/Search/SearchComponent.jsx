@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {SummonerService} from 'services/Summoner';
 import SummonerPreviewRow from 'components/Home/Search/SummonerPreviewRow';
-import {ChampionService} from 'services/Champion';
 import ChampionPreviewRow from 'components/Home/Search/ChampionPreviewRow';
+import {SummonerService} from 'services/Summoner';
+import {ChampionService} from 'services/Champion';
 
 const SearchComponent = () => {
 	const navigate = useNavigate();
