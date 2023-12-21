@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SummonerPreviewRow from 'components/Home/Search/SummonerPreviewRow';
 import ChampionPreviewRow from 'components/Home/Search/ChampionPreviewRow';
@@ -13,20 +13,22 @@ const SearchComponent = () => {
 	const labelRef = useRef(null);
 
 	useEffect(() => {
+		getLists();
+	}, [searchText]);
+
+	const getLists = useCallback(async () => {
 		if (searchText !== '') {
-			getPreviewList();
+			const _summonerList = await SummonerService.getSummonersByName(
+				` ${searchText}`,
+			);
+			setSummonerList(_summonerList.slice(0, 4));
+			const _championList = ChampionService.getChampionListByName(searchText);
+			setChampionList(_championList);
 		} else {
 			setSummonerList([]);
 			setChampionList([]);
 		}
 	}, [searchText]);
-
-	const getPreviewList = async () => {
-		const {data} = await SummonerService.getSummonersByName(` ${searchText}`);
-		setSummonerList(data.slice(0, 4));
-		const result = ChampionService.getChampionListByName(searchText);
-		setChampionList(result);
-	};
 
 	const onChange = (e) => {
 		setSearchText(e.target.value);
