@@ -40,13 +40,16 @@ const SearchComponent = () => {
 	};
 
 	const onKeyPress = (e) => {
-		if (e.key === 'Enter' && searchText !== '') {
+		const enabledSearch =
+			e.key === 'Enter' && searchText && summonerList.length > 0;
+		if (enabledSearch) {
 			searchSummoner();
 		}
 	};
 
 	const searchSummoner = () => {
-		navigate(`/summoners/${searchText}`, {replace: true});
+		const {game_name, tagline} = summonerList[0];
+		navigate(`/summoners/${game_name}-${tagline}`, {replace: true});
 	};
 
 	const showDropdown = useCallback(() => {
