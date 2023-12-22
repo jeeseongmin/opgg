@@ -1,0 +1,53 @@
+@import "/src/styles/index";
+
+.headerWrapper {
+  min-width: 1080px;
+  height: 50px;
+  background-color: $main-blue;
+  border: 1px solid $purple;
+  display: block;
+  padding: 0px 12px;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .routeList {
+    display: flex;
+    width: 1080px;
+    justify-content: flex-start;
+
+    .routeMenu:nth-of-type(1) {
+      margin-left: 0;
+    }
+
+    .routeMenu {
+      margin-left: 24px;
+    }
+
+    .routeBtn {
+      color: $light-blue;
+      font-size: 15px;
+      line-height: 22px;
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+      padding: 13px 0 10px;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+    }
+
+    .routeBtn:hover {
+      color: $white;
+      border-bottom: 3px solid $white;
+    }
+
+    .selected {
+      color: $white;
+      border-bottom: 3px solid $white;
+    }
+  }
+}

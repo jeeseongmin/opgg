@@ -1,0 +1,55 @@
+$main-blue: #5383E8;
+$light-blue: #B3CDFF;
+$purple: #4171D6;
+$white: #fff;
+$yellow: #FFB900;
+$black: #000;
+$light-gray: #F7F7F9;
+$gray: #9AA4AF;
+$light-gray: #ebeef1;
+
+html, body {
+  font-family: "Apple SD Gothic Neo", '__Roboto_2d0052', '__Roboto_Fallback_2d0052', sans-serif, system-ui, sans-serif;
+  width: auto;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+#root {
+  width: auto;
+  height: 100%;
+}
+
+.hidden {
+  clip: rect(0px, 0px, 0px, 0px);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  outline: none;
+}
+
+button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}

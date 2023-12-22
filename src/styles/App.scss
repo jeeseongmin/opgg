@@ -1,0 +1,14 @@
+@import "/src/styles/index";
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: scroll;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
