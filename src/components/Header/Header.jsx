@@ -4,7 +4,7 @@ import RouteMenu from 'components/Header/RouteMenu';
 
 const Header = () => {
 	// useNavigate
-	
+
 	return (
 		<div className={'headerWrapper'}>
 			<header>
