@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import SummonerPreviewRow from 'components/Home/Search/SummonerPreviewRow';
-import ChampionPreviewRow from 'components/Home/Search/ChampionPreviewRow';
 import {SummonerService} from 'services/Summoner';
 import {ChampionService} from 'services/Champion';
+import SummonerList from 'components/Home/Search/SummonerList';
+import ChampionList from 'components/Home/Search/ChampionList';
 
 const SearchComponent = () => {
 	const navigate = useNavigate();
@@ -17,7 +17,7 @@ const SearchComponent = () => {
 	}, [searchText]);
 
 	const getLists = useCallback(async () => {
-		if (searchText !== '') {
+		if (searchText) {
 			const _summonerList = await SummonerService.getSummonersByName(
 				` ${searchText}`,
 			);
@@ -48,6 +48,10 @@ const SearchComponent = () => {
 	const searchSummoner = () => {
 		navigate(`/summoners/${searchText}`, {replace: true});
 	};
+
+	const showDropdown = useCallback(() => {
+		return summonerList.length > 0 || championList.length > 0;
+	}, [summonerList, championList]);
 
 	return (
 		<div className={'searchComponentWrapper'}>
@@ -112,47 +116,13 @@ const SearchComponent = () => {
 							<span className={'customPlaceholderName'}>플레이어 이름 +</span>
 							<span className={'customPlaceholderTag'}>#KR1</span>
 						</label>
-
-						{(summonerList.length > 0 || championList.length > 0) && (
+						{showDropdown() && (
 							<div className={'previewListWrapper'}>
 								{summonerList.length > 0 && (
-									<>
-										<div className={'previewHeader'}>
-											<p>
-												<b>Summoner Profiles</b>
-											</p>
-										</div>
-										<div className={'previewList'}>
-											{summonerList.map((summoner, index) => {
-												console.log(summoner);
-												return (
-													<SummonerPreviewRow
-														key={summoner.id}
-														data={summoner}
-													/>
-												);
-											})}
-										</div>
-									</>
+									<SummonerList summonerList={summonerList} />
 								)}
 								{championList.length > 0 && (
-									<>
-										<div className={'previewHeader'}>
-											<p>
-												<b>Champion Builds</b>
-											</p>
-										</div>
-										<div className={'previewList'}>
-											{championList.map((champion, index) => {
-												return (
-													<ChampionPreviewRow
-														key={champion}
-														data={ChampionService.getChampionInfo(champion)}
-													/>
-												);
-											})}
-										</div>
-									</>
+									<ChampionList championList={championList} />
 								)}
 							</div>
 						)}
