@@ -11,7 +11,6 @@ const SummonerList = ({summonerList}) => {
 			</div>
 			<div className={'previewList'}>
 				{summonerList.map((summoner, index) => {
-					console.log(summoner);
 					return <SummonerPreviewRow key={summoner.id} data={summoner} />;
 				})}
 			</div>

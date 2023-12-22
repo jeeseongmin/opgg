@@ -13,18 +13,10 @@ const SummonerPreviewRow = ({data}) => {
 					<span className={'level'}>#{tagline}</span>
 				</p>
 				<p>
-					{solo_tier_info ? (
-						<span>
-							{solo_tier_info.tier +
-								' ' +
-								solo_tier_info.division +
-								' - ' +
-								solo_tier_info.lp +
-								'LP'}
-						</span>
-					) : (
-						<span>Level {level}</span>
+					{solo_tier_info && (
+						<span>{`${solo_tier_info.tier} ${solo_tier_info.division} - ${solo_tier_info.lp}LP`}</span>
 					)}
+					{!solo_tier_info && <span>Level {level}</span>}
 				</p>
 			</div>
 		</div>
