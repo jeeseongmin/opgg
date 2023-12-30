@@ -3,26 +3,41 @@
 .summonerWrapper {
   height: 100%;
   min-width: 1080px;
-  padding: 0px 12px;
-  background-color: $light-gray;
   border: 1px solid $light-gray;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $light-gray;
+  padding: 0px 12px;
+  position: relative;
+}
+
+.summonerHeader {
+  position: absolute;
+  height: 180px;
+  left: 0;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  background-color: $white;
 }
 
 .summoner {
-  width: 1080px;
   background-color: $white;
+  width: 1080px;
   display: block;
   margin: 0 auto;
-  height: auto;
-  border: 1px solid red;
+  height: 100%;
   display: flex;
   align-items: center;
 
   .summonerInfoWrapper {
-    padding: 40px 20px;
+    width: 100%;
+    padding: 40px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 
     .iconImageWrapper {
       position: relative;
@@ -40,7 +55,7 @@
         position: absolute;
         background-color: $black;
         color: $white;
-        left: 28px;
+        left: 32px;
         bottom: -10px;
         padding: 2px 8px;
         border-radius: 10px;
@@ -52,15 +67,177 @@
     }
 
     .summonerInfo {
+      width: auto;
+      height: 100%;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+
+      .summonerIntro {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+
+        .summonerName {
+          font-weight: bold;
+          font-size: 24px;
+        }
+
+        .tagName {
+          font-weight: normal;
+          font-size: 24px;
+          color: $gray;
+        }
+      }
+
+      .prevName {
+        font-size: 12px;
+        color: $gray;
+      }
+
+      .refreshHistory {
+        background-color: $main-blue;
+        color: $white;
+        font-size: 14px;
+        height: 36px;
+        padding: 0px 14px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+
+.summonerBody {
+  position: absolute;
+  top: 180px;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  background-color: $light-gray;
+
+  .summonerLeagueWrapper {
+    width: 1080px;
+    height: auto;
+    display: flex;
+    margin: 10px auto;
+    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .infosWrapper {
+      width: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+
+      .rankInfo {
+        height: auto;
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        border-radius: 6px;
+
+        .rankInfoHeader {
+          padding: 9px 12px;
+          color: $dark-gray;
+          border-bottom: 1px solid $light-gray;
+
+          p {
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+          }
+        }
+
+        .rankInfoBody {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-top: 12px;
+          padding-bottom: 12px;
+
+          & > div:nth-of-type(1) {
+            padding-left: 14px;
+            padding-right: 14px;
+          }
+
+          & > div:nth-of-type(2) {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            h3 {
+              width: auto;
+              margin: 0;
+              padding: 0;
+            }
+
+            .solo {
+              font-size: 20px;
+            }
+
+            .flex {
+              font-size: 14px;
+              font-weight: bold;
+            }
+
+
+            p {
+              margin: 0;
+              padding: 0;
+              font-size: 14px;
+            }
+          }
+
+          & > div:nth-of-type(3) {
+            padding-right: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+
+            span {
+              color: $gray;
+              font-size: 12px;
+            }
+          }
+        }
+
+        .solo {
+          width: 70px;
+        }
+
+        .flex {
+          width: 40px;
+        }
+
+        .rankImage {
+          border-radius: 100%;
+          display: flex;
+          justfiy-content: center;
+          align-items: center;
+          background-color: $very-light-gray;
+
+          img {
+            width: inherit;
+          }
+        }
+      }
+    }
+
+    .matchesWrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: $white;
 
     }
   }
-
 }
-
-.summonerLeagueWrapper {
-  width: 1080px;
-}
-
