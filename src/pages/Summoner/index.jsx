@@ -15,6 +15,9 @@ const Summoner = () => {
 	const [summonerInfo, setSummonerInfo] = useState({});
 	const [leagueList, setLeagueList] = useState({});
 
+	const [soloRankInfo, setSoloRankInfo] = useState({});
+	const [flexRankInfo, setFlexRankInfo] = useState({});
+
 	useEffect(() => {
 		getInfo();
 	}, []);
@@ -30,6 +33,13 @@ const Summoner = () => {
 		const _data = await SummonerService.getHistory(_summonerInfo.puuid);
 		_leagueList.sort((a, b) => {
 			return a.queueType > b.queueType ? -1 : a.queueType > b.queueType ? 1 : 0;
+		});
+		_leagueList.map((league, index) => {
+			if (league.queueType.includes('SOLO')) {
+				setSoloRankInfo(league);
+			} else if (league.queueType.includes('FLEX')) {
+				setFlexRankInfo(league);
+			}
 		});
 		setLeagueList(_leagueList);
 	};
@@ -77,17 +87,12 @@ const Summoner = () => {
 			<div className={'summonerBody'}>
 				<div className={'summonerLeagueWrapper'}>
 					<div className={'infosWrapper'}>
-						{leagueList.length > 0 &&
-							leagueList.map((leagueData, index) => {
-								if (leagueData.queueType.includes('RANKED')) {
-									return (
-										<RankInfo
-											key={leagueData.leagueId}
-											leagueData={leagueData}
-										/>
-									);
-								}
-							})}
+						{soloRankInfo && (
+							<RankInfo leagueData={soloRankInfo} queueType={'solo'} />
+						)}
+						{flexRankInfo && (
+							<RankInfo leagueData={flexRankInfo} queueType={'flex'} />
+						)}
 					</div>
 					<div className={'matchesWrapper'}>
 						<Matches />
