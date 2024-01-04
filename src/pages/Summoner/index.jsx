@@ -13,10 +13,10 @@ const Summoner = () => {
 	const [gameName, tag] = fullName.split('-');
 
 	const [summonerInfo, setSummonerInfo] = useState({});
-	const [leagueList, setLeagueList] = useState({});
 
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
+	const [matchList, setMatchList] = useState([]);
 
 	useEffect(() => {
 		getInfo();
@@ -30,10 +30,6 @@ const Summoner = () => {
 			_summonerInfo.id,
 		);
 
-		const _data = await SummonerService.getHistory(_summonerInfo.puuid);
-		_leagueList.sort((a, b) => {
-			return a.queueType > b.queueType ? -1 : a.queueType > b.queueType ? 1 : 0;
-		});
 		_leagueList.map((league, index) => {
 			if (league.queueType.includes('SOLO')) {
 				setSoloRankInfo(league);
@@ -41,7 +37,9 @@ const Summoner = () => {
 				setFlexRankInfo(league);
 			}
 		});
-		setLeagueList(_leagueList);
+
+		const _matchList = await SummonerService.getHistory(_summonerInfo.puuid);
+		setMatchList(_matchList);
 	};
 
 	const onError = ({currentTarget}) => {
@@ -94,9 +92,7 @@ const Summoner = () => {
 							<RankInfo leagueData={flexRankInfo} queueType={'flex'} />
 						)}
 					</div>
-					<div className={'matchesWrapper'}>
-						<Matches />
-					</div>
+					<Matches matchList={matchList} />
 				</div>
 			</div>
 		</div>
