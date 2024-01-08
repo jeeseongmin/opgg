@@ -1,31 +1,31 @@
 import React, {useEffect} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import 'styles/App.scss';
 import 'styles/normalize.scss';
+import authStore from 'modules/zustand/authStore';
 import Header from 'components/Header/Header';
 import Banner from 'components/Banner/Banner';
 import Home from 'pages/Home';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Summoner from 'pages/Summoner';
-import {CommonService} from './services/Common';
-import authStore from 'modules/zustand/authStore';
+import {checkOpgg, checkRiot} from 'services/Common';
 
 function App() {
 	const {opggAuth, riotAuth, setOpggAuth, setRiotAuth} = authStore(
 		(state) => state,
 	);
-
+	
 	useEffect(() => {
 		checkAPI();
 	}, []);
-
+	
 	const checkAPI = async () => {
-		const data = await CommonService.checkOpgg('Hide on bush');
+		const data = await checkOpgg('Hide on bush');
 		setOpggAuth(data !== 'error' ? true : false);
-
-		const puuid = await CommonService.checkRiot('Hide on bush', 'KR1');
+		
+		const puuid = await checkRiot('Hide on bush', 'KR1');
 		setRiotAuth(puuid !== 'error' ? true : false);
 	};
-
+	
 	return (
 		<div className={'app'}>
 			<BrowserRouter>

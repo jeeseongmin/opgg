@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {AccountService} from 'services/Account';
-import {SummonerService} from 'services/Summoner';
-import {LeagueService} from 'services/League';
 import 'pages/Summoner/Summoner.scss';
-import {ImageService} from 'services/Image';
 import Matches from 'pages/Summoner/Matches';
 import RankInfo from 'components/Summoner/RankInfo';
+import {getSummonerByPuuid} from 'services/Summoner';
+import {getLeaguesBySummonerId} from 'services/League';
+import {getSummonerIconByIconNum} from 'services/Image';
+import {getMatchListByPuuid} from 'services/Match';
+import {getAccountPuuidByNameAndTag} from 'services/Account';
 
 const Summoner = () => {
 	const {fullName} = useParams();
@@ -23,10 +24,10 @@ const Summoner = () => {
 	}, []);
 	
 	const getInfo = async () => {
-		const puuid = await AccountService.getAccountByNameAndTag(gameName, tag);
-		const _summonerInfo = await SummonerService.getSummonerByPUUID(puuid);
+		const puuid = await getAccountPuuidByNameAndTag(gameName, tag);
+		const _summonerInfo = await getSummonerByPuuid(puuid);
 		setSummonerInfo(_summonerInfo);
-		const _leagueList = await LeagueService.getLeagueEntriesById(
+		const _leagueList = await getLeaguesBySummonerId(
 			_summonerInfo.id,
 		);
 		
@@ -38,7 +39,7 @@ const Summoner = () => {
 			}
 		});
 		
-		const _matchList = await SummonerService.getHistory(_summonerInfo.puuid);
+		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid);
 		setMatchList(_matchList);
 	};
 	
@@ -57,7 +58,7 @@ const Summoner = () => {
 							{summonerInfo.profileIconId && (
 								<img
 									className='iconImage'
-									src={ImageService.getSummonerIconImage(
+									src={getSummonerIconByIconNum(
 										summonerInfo.profileIconId,
 									)}
 									onError={onError}

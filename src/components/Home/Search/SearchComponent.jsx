@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {SummonerService} from 'services/Summoner';
-import {ChampionService} from 'services/Champion';
+import {getSummonersByName} from 'services/Summoner';
+import {getChampionListByName} from 'services/Champion';
 import SummonerList from 'components/Home/Search/SummonerList';
 import ChampionList from 'components/Home/Search/ChampionList';
 
@@ -18,11 +18,11 @@ const SearchComponent = () => {
 	
 	const getLists = useCallback(async () => {
 		if (searchText) {
-			const _summonerList = await SummonerService.getSummonersByName(
+			const _summonerList = await getSummonersByName(
 				` ${searchText}`,
 			);
 			setSummonerList(_summonerList.slice(0, 4));
-			const _championList = ChampionService.getChampionListByName(searchText);
+			const _championList = getChampionListByName(searchText);
 			setChampionList(_championList);
 		} else {
 			setSummonerList([]);

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ImageService} from 'services/Image';
+import {getTierIconByTierName} from 'services/Image';
 
 const RankInfo = ({leagueData, queueType}) => {
 	const [isUnranked, setIsUnranked] = useState(true);
@@ -42,7 +42,7 @@ const RankInfo = ({leagueData, queueType}) => {
 				{/* 이미지 wrapper */}
 				<div>
 					<div className={`rankImage ${queueType}`}>
-						<img src={ImageService.getTierImage(tier.toLowerCase())} />
+						<img src={getTierIconByTierName(tier.toLowerCase())} />
 					</div>
 				</div>
 				{/* 포인트 정보 */}
