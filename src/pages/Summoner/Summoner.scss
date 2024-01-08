@@ -1,18 +1,15 @@
 @import "/src/styles/index";
 
 .summonerWrapper {
-  height: 100%;
-  min-width: 1080px;
   border: 1px solid $light-gray;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: $light-gray;
-  padding: 0px 12px;
   position: relative;
 }
 
-.summonerHeader {
+nav {
   position: absolute;
   height: 180px;
   left: 0;
@@ -238,13 +235,12 @@
       }
     }
 
-    .matchesWrapper {
+    .matchesInfo {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 10px;
       background-color: $white;
-
     }
   }
 }

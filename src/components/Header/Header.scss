@@ -1,6 +1,6 @@
 @import "/src/styles/index";
 
-.headerWrapper {
+header {
   min-width: 1080px;
   height: 50px;
   background-color: $main-blue;
@@ -9,7 +9,7 @@
   padding: 0px 12px;
 }
 
-header {
+.headerContents {
   position: relative;
   display: flex;
   justify-content: center;

@@ -11,11 +11,11 @@ const SearchComponent = () => {
 	const [summonerList, setSummonerList] = useState([]);
 	const [championList, setChampionList] = useState([]);
 	const labelRef = useRef(null);
-
+	
 	useEffect(() => {
 		getLists();
 	}, [searchText]);
-
+	
 	const getLists = useCallback(async () => {
 		if (searchText) {
 			const _summonerList = await SummonerService.getSummonersByName(
@@ -29,7 +29,7 @@ const SearchComponent = () => {
 			setChampionList([]);
 		}
 	}, [searchText]);
-
+	
 	const onChange = (e) => {
 		setSearchText(e.target.value);
 		if (e.target.value) {
@@ -38,7 +38,7 @@ const SearchComponent = () => {
 			labelRef.current.style.setProperty('display', 'flex');
 		}
 	};
-
+	
 	const onKeyPress = (e) => {
 		const enabledSearch =
 			e.key === 'Enter' && searchText && summonerList.length > 0;
@@ -46,18 +46,18 @@ const SearchComponent = () => {
 			searchSummoner();
 		}
 	};
-
+	
 	const searchSummoner = () => {
 		const {game_name, tagline} = summonerList[0];
 		navigate(`/summoners/${game_name}-${tagline}`, {replace: true});
 	};
-
+	
 	const showDropdown = useCallback(() => {
 		return summonerList.length > 0 || championList.length > 0;
 	}, [summonerList, championList]);
-
+	
 	return (
-		<div className={'searchComponentWrapper'}>
+		<section className={'searchComponentWrapper'}>
 			<div>
 				<div className={'searchForm'}>
 					<div>
@@ -135,7 +135,7 @@ const SearchComponent = () => {
 					</button>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 

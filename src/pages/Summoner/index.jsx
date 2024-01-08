@@ -11,17 +11,17 @@ import RankInfo from 'components/Summoner/RankInfo';
 const Summoner = () => {
 	const {fullName} = useParams();
 	const [gameName, tag] = fullName.split('-');
-
+	
 	const [summonerInfo, setSummonerInfo] = useState({});
 	const [leagueList, setLeagueList] = useState({});
-
+	
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
-
+	
 	useEffect(() => {
 		getInfo();
 	}, []);
-
+	
 	const getInfo = async () => {
 		const puuid = await AccountService.getAccountByNameAndTag(gameName, tag);
 		const _summonerInfo = await SummonerService.getSummonerByPUUID(puuid);
@@ -29,7 +29,7 @@ const Summoner = () => {
 		const _leagueList = await LeagueService.getLeagueEntriesById(
 			_summonerInfo.id,
 		);
-
+		
 		const _data = await SummonerService.getHistory(_summonerInfo.puuid);
 		_leagueList.sort((a, b) => {
 			return a.queueType > b.queueType ? -1 : a.queueType > b.queueType ? 1 : 0;
@@ -43,15 +43,15 @@ const Summoner = () => {
 		});
 		setLeagueList(_leagueList);
 	};
-
+	
 	const onError = ({currentTarget}) => {
 		currentTarget.onerror = null;
 		currentTarget.src = `/images/championImages/${currentTarget.id}_0.jpg`;
 	};
-
+	
 	return (
-		<div className={'summonerWrapper'}>
-			<div className={'summonerHeader'}>
+		<main className={'summonerWrapper'}>
+			<nav className={'summonerHeader'}>
 				<div className={'summoner'}>
 					{/* 상단 소환사 정보 */}
 					<div className={'summonerInfoWrapper'}>
@@ -69,7 +69,7 @@ const Summoner = () => {
 								<span>{summonerInfo.summonerLevel}</span>
 							</div>
 						</div>
-
+						
 						<div className={'summonerInfo'}>
 							<div className={'summonerIntro'}>
 								<span className={'summonerName'}>{gameName}</span>
@@ -82,8 +82,8 @@ const Summoner = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</nav>
+			
 			<div className={'summonerBody'}>
 				<div className={'summonerLeagueWrapper'}>
 					<div className={'infosWrapper'}>
@@ -94,12 +94,12 @@ const Summoner = () => {
 							<RankInfo leagueData={flexRankInfo} queueType={'flex'} />
 						)}
 					</div>
-					<div className={'matchesWrapper'}>
+					<section className={'matchesInfo'}>
 						<Matches />
-					</div>
+					</section>
 				</div>
 			</div>
-		</div>
+		</main>
 	);
 };
 
