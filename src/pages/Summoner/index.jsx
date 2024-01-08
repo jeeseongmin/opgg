@@ -11,17 +11,17 @@ import RankInfo from 'components/Summoner/RankInfo';
 const Summoner = () => {
 	const {fullName} = useParams();
 	const [gameName, tag] = fullName.split('-');
-
+	
 	const [summonerInfo, setSummonerInfo] = useState({});
-
+	
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
 	const [matchList, setMatchList] = useState([]);
-
+	
 	useEffect(() => {
 		getInfo();
 	}, []);
-
+	
 	const getInfo = async () => {
 		const puuid = await AccountService.getAccountByNameAndTag(gameName, tag);
 		const _summonerInfo = await SummonerService.getSummonerByPUUID(puuid);
@@ -29,7 +29,7 @@ const Summoner = () => {
 		const _leagueList = await LeagueService.getLeagueEntriesById(
 			_summonerInfo.id,
 		);
-
+		
 		_leagueList.map((league, index) => {
 			if (league.queueType.includes('SOLO')) {
 				setSoloRankInfo(league);
@@ -37,19 +37,19 @@ const Summoner = () => {
 				setFlexRankInfo(league);
 			}
 		});
-
+		
 		const _matchList = await SummonerService.getHistory(_summonerInfo.puuid);
 		setMatchList(_matchList);
 	};
-
+	
 	const onError = ({currentTarget}) => {
 		currentTarget.onerror = null;
 		currentTarget.src = `/images/championImages/${currentTarget.id}_0.jpg`;
 	};
-
+	
 	return (
-		<div className={'summonerWrapper'}>
-			<div className={'summonerHeader'}>
+		<main className={'summonerWrapper'}>
+			<nav className={'summonerHeader'}>
 				<div className={'summoner'}>
 					{/* 상단 소환사 정보 */}
 					<div className={'summonerInfoWrapper'}>
@@ -67,7 +67,7 @@ const Summoner = () => {
 								<span>{summonerInfo.summonerLevel}</span>
 							</div>
 						</div>
-
+						
 						<div className={'summonerInfo'}>
 							<div className={'summonerIntro'}>
 								<span className={'summonerName'}>{gameName}</span>
@@ -80,8 +80,8 @@ const Summoner = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</nav>
+			
 			<div className={'summonerBody'}>
 				<div className={'summonerLeagueWrapper'}>
 					<div className={'infosWrapper'}>
@@ -95,7 +95,7 @@ const Summoner = () => {
 					<Matches matchList={matchList} />
 				</div>
 			</div>
-		</div>
+		</main>
 	);
 };
 

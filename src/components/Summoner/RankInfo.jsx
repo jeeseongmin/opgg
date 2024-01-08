@@ -63,13 +63,13 @@ const RankInfo = ({leagueData, queueType}) => {
 		}
 	};
 	return (
-		<div className={'rankInfo'}>
+		<section className={'rankInfo'}>
 			<div className={'rankInfoHeader'}>
 				<QueueType />
 				<UnRankedText />
 			</div>
 			<RankStatus />
-		</div>
+		</section>
 	);
 };
 
