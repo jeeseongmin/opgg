@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import 'pages/Summoner/Summoner.scss';
-import Matches from 'pages/Summoner/Matches';
 import RankInfo from 'components/Summoner/RankInfo';
+import Match from 'pages/Summoner/Match/index';
 import {getSummonerByPuuid} from 'services/Summoner';
 import {getLeaguesBySummonerId} from 'services/League';
 import {getSummonerIconByIconNum} from 'services/Image';
@@ -14,7 +14,6 @@ const Summoner = () => {
 	const [gameName, tag] = fullName.split('-');
 	
 	const [summonerInfo, setSummonerInfo] = useState({});
-	
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
 	const [matchList, setMatchList] = useState([]);
@@ -39,13 +38,27 @@ const Summoner = () => {
 			}
 		});
 		
-		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid);
-		setMatchList(_matchList);
+		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid, 1);
+		if (_matchList.length > 0) {
+			setMatchList(_matchList);
+		}
 	};
 	
 	const onError = ({currentTarget}) => {
 		currentTarget.onerror = null;
 		currentTarget.src = `/images/championImages/${currentTarget.id}_0.jpg`;
+	};
+	
+	const ProfileIcon = () => {
+		if (summonerInfo.profileIconId) {
+			return <img
+				className='iconImage'
+				src={getSummonerIconByIconNum(
+					summonerInfo.profileIconId,
+				)}
+				onError={onError}
+			/>;
+		}
 	};
 	
 	return (
@@ -55,15 +68,7 @@ const Summoner = () => {
 					{/* 상단 소환사 정보 */}
 					<div className={'summonerInfoWrapper'}>
 						<div className={'iconImageWrapper'}>
-							{summonerInfo.profileIconId && (
-								<img
-									className='iconImage'
-									src={getSummonerIconByIconNum(
-										summonerInfo.profileIconId,
-									)}
-									onError={onError}
-								/>
-							)}
+							<ProfileIcon />
 							<div className={'summonerLevel'}>
 								<span>{summonerInfo.summonerLevel}</span>
 							</div>
@@ -93,7 +98,15 @@ const Summoner = () => {
 							<RankInfo leagueData={flexRankInfo} queueType={'flex'} />
 						)}
 					</div>
-					<Matches matchList={matchList} />
+					<section className={'matchesWrapper'}>
+						<div className={'matchList'}>
+							{
+								matchList.length > 0 && matchList.map((matchId, index) => {
+									return <Match key={matchId} matchId={matchId} />;
+								})
+							}
+						</div>
+					</section>
 				</div>
 			</div>
 		</main>
