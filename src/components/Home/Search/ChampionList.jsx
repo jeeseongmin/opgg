@@ -1,6 +1,6 @@
 import React from 'react';
 import ChampionPreviewRow from 'components/Home/Search/ChampionPreviewRow';
-import {ChampionService} from 'services/Champion';
+import {getChampionInfo} from 'services/Champion';
 
 const ChampionList = ({championList}) => {
 	return (
@@ -15,7 +15,7 @@ const ChampionList = ({championList}) => {
 					return (
 						<ChampionPreviewRow
 							key={champion}
-							data={ChampionService.getChampionInfo(champion)}
+							data={getChampionInfo(champion)}
 						/>
 					);
 				})}

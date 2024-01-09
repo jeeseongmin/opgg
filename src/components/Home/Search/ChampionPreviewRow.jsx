@@ -1,14 +1,21 @@
 import React from 'react';
+import {getChampionIconByChampionName} from 'services/Image';
 
 const ChampionPreviewRow = ({data}) => {
 	const {id, name, tags} = data;
-
+	
+	const onError = ({currentTarget}) => {
+		currentTarget.onerror = null;
+		currentTarget.src = `/images/championImages/${id}_0.jpg`;
+	};
+	
 	return (
 		<div className={'previewRow'}>
 			<div className={'profileImageWrapper'}>
 				<img
 					className={'profileImage'}
-					src={`/images/championImages/${id}_0.jpg`}
+					src={getChampionIconByChampionName(id)}
+					onError={onError}
 				/>
 			</div>
 			<div className={'profileInfoWrapper'}>

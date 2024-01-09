@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {SummonerService} from 'services/Summoner';
-import {ChampionService} from 'services/Champion';
+import {getSummonersByName} from 'services/Summoner';
+import {getChampionListByName} from 'services/Champion';
 import SummonerList from 'components/Home/Search/SummonerList';
 import ChampionList from 'components/Home/Search/ChampionList';
 
@@ -11,25 +11,25 @@ const SearchComponent = () => {
 	const [summonerList, setSummonerList] = useState([]);
 	const [championList, setChampionList] = useState([]);
 	const labelRef = useRef(null);
-
+	
 	useEffect(() => {
 		getLists();
 	}, [searchText]);
-
+	
 	const getLists = useCallback(async () => {
 		if (searchText) {
-			const _summonerList = await SummonerService.getSummonersByName(
+			const _summonerList = await getSummonersByName(
 				` ${searchText}`,
 			);
 			setSummonerList(_summonerList.slice(0, 4));
-			const _championList = ChampionService.getChampionListByName(searchText);
+			const _championList = getChampionListByName(searchText);
 			setChampionList(_championList);
 		} else {
 			setSummonerList([]);
 			setChampionList([]);
 		}
 	}, [searchText]);
-
+	
 	const onChange = (e) => {
 		setSearchText(e.target.value);
 		if (e.target.value) {
@@ -38,23 +38,26 @@ const SearchComponent = () => {
 			labelRef.current.style.setProperty('display', 'flex');
 		}
 	};
-
+	
 	const onKeyPress = (e) => {
-		if (e.key === 'Enter' && searchText !== '') {
+		const enabledSearch =
+			e.key === 'Enter' && searchText && summonerList.length > 0;
+		if (enabledSearch) {
 			searchSummoner();
 		}
 	};
-
+	
 	const searchSummoner = () => {
-		navigate(`/summoners/${searchText}`, {replace: true});
+		const {game_name, tagline} = summonerList[0];
+		navigate(`/summoners/${game_name}-${tagline}`, {replace: true});
 	};
-
+	
 	const showDropdown = useCallback(() => {
 		return summonerList.length > 0 || championList.length > 0;
 	}, [summonerList, championList]);
-
+	
 	return (
-		<div className={'searchComponentWrapper'}>
+		<section className={'searchComponentWrapper'}>
 			<div>
 				<div className={'searchForm'}>
 					<div>
@@ -132,7 +135,7 @@ const SearchComponent = () => {
 					</button>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 
