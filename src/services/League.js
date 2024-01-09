@@ -1,15 +1,9 @@
-import axios from 'axios';
+import {riotInstance} from 'modules/axios/interceptor';
 
 export const getLeaguesBySummonerId = async (summonerId) => {
 	try {
-		const {data} = await axios.get(
-			`/kr/lol/league/v4/entries/by-summoner/${summonerId}`,
-			{
-				headers: {
-					'X-Riot-Token': process.env.REACT_APP_RIOT_API_KEY,
-				},
-			},
-		);
+		const {data} = await riotInstance.get(`/kr/lol/league/v4/entries/by-summoner/${summonerId}`);
+		
 		return data;
 	} catch (error) {
 		console.log(error);

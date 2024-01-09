@@ -1,17 +1,9 @@
-import axios from 'axios';
+import {opggInstance, riotInstance} from '../modules/axios/interceptor';
 
 export const checkOpgg = async (summonerName) => {
 	try {
-		const {data} = await axios.get(
-			`https://op.gg/api/v1.0/internal/bypass/summoners/v2/kr/autocomplete?gameName=${summonerName}`,
-			{
-				headers: {
-					'content-type': 'application/json;charset=UTF-8',
-					accept: 'application/json,',
-					'Access-Control-Allow-Origin': '*',
-				},
-			},
-		);
+		const {data} = await opggInstance.get(`https://op.gg/api/v1.0/internal/bypass/summoners/v2/kr/autocomplete?gameName=${summonerName}`);
+		
 		return data.data;
 	} catch (error) {
 		console.log('error : ', error);
@@ -21,17 +13,10 @@ export const checkOpgg = async (summonerName) => {
 
 export const checkRiot = async (summonerName, tagLine) => {
 	try {
-		const {puuid} = await axios.get(
-			`/asia/riot/account/v1/accounts/by-riot-id/${summonerName}/${tagLine}`,
-			{
-				headers: {
-					'X-Riot-Token': process.env.REACT_APP_RIOT_API_KEY,
-				},
-			},
-		);
+		const {puuid} = await riotInstance.get(`/asia/riot/account/v1/accounts/by-riot-id/${summonerName}/${tagLine}`);
+		
 		return puuid;
 	} catch (error) {
-		console.log('hahaha');
 		console.log(error);
 		return 'error';
 	}

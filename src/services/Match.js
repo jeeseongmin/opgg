@@ -1,29 +1,20 @@
-import axios from 'axios';
+import {riotInstance} from 'modules/axios/interceptor';
 
-export const getMatchListByPuuid = async (puuid) => {
+export const getMatchListByPuuid = async (puuid, cnt) => {
 	try {
-		const {data} = await axios.get(
-			`/asia/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${0}&count=${5}`,
-			{
-				headers: {
-					'X-Riot-Token': process.env.REACT_APP_RIOT_API_KEY,
-				},
-			},
-		);
+		const {data} = await riotInstance.get(`/asia/lol/match/v5/matches/by-puuid/${puuid}/ids?type=ranked&start=${0}&count=${cnt}`);
+		
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
-	
 };
+
 export const getMatchById = async (matchID) => {
 	try {
-		const {data} = await axios.get(`/asia/lol/match/v5/matches/${matchID}`, {
-			headers: {
-				'X-Riot-Token': process.env.REACT_APP_RIOT_API_KEY,
-			},
-		});
-		return data;
+		const res = await riotInstance.get(`/asia/lol/match/v5/matches/${matchID}`);
+		
+		return res;
 	} catch (error) {
 		console.log(error);
 	}
