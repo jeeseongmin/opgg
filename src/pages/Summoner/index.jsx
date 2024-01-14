@@ -50,15 +50,15 @@ const Summoner = () => {
 	};
 	
 	const ProfileIcon = () => {
-		if (summonerInfo.profileIconId) {
-			return <img
-				className='iconImage'
-				src={getSummonerIconByIconNum(
-					summonerInfo.profileIconId,
-				)}
-				onError={onError}
-			/>;
-		}
+		if (!summonerInfo.profileIconId) return null;
+		return <img
+			className='iconImage'
+			src={getSummonerIconByIconNum(
+				summonerInfo.profileIconId,
+			)}
+			onError={onError}
+		/>;
+		
 	};
 	
 	return (

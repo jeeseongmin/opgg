@@ -29,11 +29,8 @@ const RankInfo = ({leagueData, queueType}) => {
 	};
 	
 	const UnRankedText = () => {
-		if (isUnranked) {
-			return <p>Unranked</p>;
-		} else {
-			return <></>;
-		}
+		if (!isUnranked) return null;
+		return <p>Unranked</p>;
 	};
 	
 	const RankStatus = () => {
