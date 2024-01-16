@@ -38,7 +38,7 @@ const Summoner = () => {
 			}
 		});
 		
-		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid, 1);
+		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid, 10);
 		if (_matchList.length > 0) {
 			setMatchList(_matchList);
 		}
@@ -102,7 +102,7 @@ const Summoner = () => {
 						<div className={'matchList'}>
 							{
 								matchList.length > 0 && matchList.map((matchId, index) => {
-									return <Match key={matchId} matchId={matchId} />;
+									return <Match key={matchId} matchId={matchId} fullName={fullName} />;
 								})
 							}
 						</div>
