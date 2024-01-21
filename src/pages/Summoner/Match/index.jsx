@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {getMatchById} from 'services/Match';
 import {getChampionIconByChampionName, getItemImageByItemNum, getSummonerSpellImageBySpellName} from 'services/Image';
-import {getSpellNameBySpellCode} from '../../../services/Spell';
+import {getSpellNameBySpellCode} from 'services/Spell';
 
 const Match = ({matchId, fullName}) => {
 	const [gameName, tag] = fullName.split('-');
@@ -40,6 +40,7 @@ const Match = ({matchId, fullName}) => {
 		let duration = gameInfo.gameDuration;
 		if (!duration) return null;
 		let hour, minute, second;
+		
 		if (duration >= 3600) {
 			hour = Math.floor(Math.floor(duration / 60) / 60);
 			minute = Math.floor((duration - (hour * 60 * 60)) / 60);
@@ -75,10 +76,11 @@ const Match = ({matchId, fullName}) => {
 		return `${Math.floor((now_date - before_date) / (60 * 60 * 24))}일 전`;
 		
 		function sameDate(before, after) {
-			if ((before.getFullYear() === after.getFullYear())
-				&& (before.getMonth() === after.getMonth())
-				&& (before.getDate() === after.getDate())
-			) return true;
+			let sameYear = before.getFullYear() === after.getFullYear();
+			let sameMonth = before.getMonth() === after.getMonth();
+			let sameDate = before.getDate() === after.getDate();
+			
+			if (sameYear && sameMonth && sameDate) return true;
 			return false;
 		}
 	}
