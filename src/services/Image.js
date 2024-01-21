@@ -18,3 +18,7 @@ export const getSummonerSpellImageBySpellName = (spellName) => {
 export const getItemImageByItemNum = (itemNum) => {
 	return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/${itemNum}.png`;
 };
+
+export const getPerkIconByPerkUrl = (perkUrlPath) => {
+	return `https://ddragon.leagueoflegends.com/cdn/img/${perkUrlPath}`;
+};
