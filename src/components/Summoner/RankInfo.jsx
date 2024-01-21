@@ -20,7 +20,7 @@ const RankInfo = ({leagueData, queueType}) => {
 		return Math.round((wins / (wins + losses)) * 100);
 	};
 	
-	const QueueType = () => {
+	const getQueueTypeText = () => {
 		if (queueType === 'solo') return '솔로랭크';
 		return '자유랭크';
 	};
@@ -59,7 +59,7 @@ const RankInfo = ({leagueData, queueType}) => {
 	return (
 		<section className={'rankInfo'}>
 			<div className={'rankInfoHeader'}>
-				<p>{QueueType()}</p>
+				<p>{getQueueTypeText()}</p>
 				<UnRankedText />
 			</div>
 			<RankStatus />

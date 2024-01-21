@@ -17,13 +17,13 @@ const Match = ({matchId, fullName}) => {
 		const {data} = await getMatchById(matchId);
 		setGameInfo(data.info);
 		const participants = data.info.participants;
-		if (participants && participants.length > 0) {
-			
+		
+		if (participants?.length) {
 			setTeamData(participants);
-			const _myData = participants.filter((data) => {
+			const _myData = participants.find((data) => {
 				return data.summonerName === gameName;
 			});
-			setMyData(_myData[0]);
+			setMyData(_myData);
 		}
 	};
 	
