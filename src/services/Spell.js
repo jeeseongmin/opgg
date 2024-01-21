@@ -1,9 +1,9 @@
 import spellData from 'data/spell.json';
 
 export const getSpellNameBySpellCode = (spellCode) => {
-	const spell = Object.values(spellData.data).filter((spellInfo) => {
+	const spell = Object.values(spellData.data).find((spellInfo) => {
 		return spellCode === spellInfo.key * 1;
 	});
-	if (spell.length > 0 && spell[0].id) return spell[0].id;
+	if (spell?.id) return spell.id;
 	return 'SummonerFlash';
 };
