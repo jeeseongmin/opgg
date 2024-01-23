@@ -97,6 +97,16 @@ const Summoner = () => {
 						{flexRankInfo && (
 							<RankInfo leagueData={flexRankInfo} queueType={'flex'} />
 						)}
+						<div className={'championInfoWrapper'}>
+							<div>
+								<button className={'selected'}>
+									<div>S2024 S1</div>
+								</button>
+								<button>솔로랭크</button>
+								<button>자유랭크</button>
+							</div>
+							<div>body</div>
+						</div>
 					</div>
 					<section className={'matchesWrapper'}>
 						<div className={'matchList'}>
