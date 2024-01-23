@@ -1,13 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {getMatchById} from 'services/Match';
-import {getChampionIconByChampionName, getItemImageByItemNum, getSummonerSpellImageBySpellName} from 'services/Image';
+import {
+	getChampionIconByChampionName,
+	getItemImageByItemNum,
+	getPerkIconByPerkUrl,
+	getSummonerSpellImageBySpellName,
+} from 'services/Image';
 import {getSpellNameBySpellCode} from 'services/Spell';
+import {getPerkInfoByPerkId} from 'services/Common';
+import {IoIosArrowDown} from 'react-icons/io';
 
 const Match = ({matchId, fullName}) => {
 	const [gameName, tag] = fullName.split('-');
-	const [myData, setMyData] = useState([]);
+	const [myData, setMyData] = useState({});
+	const [toggleTeamDetailInfo, setToggleTeamDetailInfo] = useState(false);
 	const [gameInfo, setGameInfo] = useState({});
 	const [teamData, setTeamData] = useState([]);
+	const [blueTeam, setBlueTeam] = useState([]);
+	const [redTeam, setRedTeam] = useState([]);
 	
 	useEffect(() => {
 		getMatchInfo();
@@ -24,6 +34,8 @@ const Match = ({matchId, fullName}) => {
 				return data.summonerName === gameName;
 			});
 			setMyData(_myData);
+			setBlueTeam(participants.slice(0, 5));
+			setRedTeam(participants.slice(5, 10));
 		}
 	};
 	
@@ -85,18 +97,25 @@ const Match = ({matchId, fullName}) => {
 		}
 	}
 	
-	const ItemImageComponent = ({itemNum}) => {
-		let itemCode = myData[`item${itemNum}`];
+	const ItemImageComponent = ({data, itemNum}) => {
+		let itemCode = data[`item${itemNum}`];
 		if (itemCode === 0) return <div className={'emptyItem'}></div>;
 		return <img
-			src={getItemImageByItemNum(myData[`item${itemNum}`])} />;
+			src={getItemImageByItemNum(data[`item${itemNum}`])} />;
 	};
 	
-	const getKda = () => {
-		if (!myData.challenges) return 0;
-		let kda = myData.challenges.kda;
+	const getKda = (data) => {
+		if (!data.challenges) return 0;
+		let kda = data.challenges.kda;
 		kda = String(Math.round(kda.toFixed(2) * 100) / 100);
-		if (kda.length < 4) return `${kda}0`;
+		if (kda.length < 3) {
+			if (kda.includes('.')) return `${kda}00`;
+			else return `${kda}.00`;
+		} else if (kda.length < 4) {
+			if (kda.includes('.')) return `${kda}0`;
+			else return `${kda}.0`;
+		}
+		
 		return kda;
 	};
 	
@@ -107,9 +126,9 @@ const Match = ({matchId, fullName}) => {
 		return killParticipation * 100;
 	};
 	
-	const getPerKillingMinion = () => {
-		if (!myData.totalMinionsKilled || !gameInfo.gameDuration) return 0;
-		let totalMinionsKilled = myData.totalMinionsKilled;
+	const getPerKillingMinion = (data) => {
+		if (!data.totalMinionsKilled || !gameInfo.gameDuration) return 0;
+		let totalMinionsKilled = data.totalMinionsKilled;
 		let duration = Math.floor(gameInfo.gameDuration / 60);
 		return Math.floor((totalMinionsKilled / duration).toFixed(1) * 10) / 10;
 	};
@@ -136,79 +155,215 @@ const Match = ({matchId, fullName}) => {
 		</div>;
 	};
 	
+	const getPerkIconUrl = (style, perkId) => {
+		const urlPath = getPerkInfoByPerkId(style, perkId);
+		return urlPath;
+	};
+	
+	const PerkIcon = ({type}) => {
+		if (!myData?.perks?.styles) return null;
+		let urlPath;
+		
+		if (type === 'primary') {
+			urlPath = getPerkIconUrl(myData.perks.styles[0].style, myData.perks.styles[0].selections[0].perk);
+			return <img
+				className={'perk'}
+				src={getPerkIconByPerkUrl(urlPath)} />;
+		}
+		
+		urlPath = getPerkIconUrl(myData.perks.styles[1].style);
+		return <img src={getPerkIconByPerkUrl(urlPath)} />;
+	};
+	
+	const TeamComponent = ({team}) => {
+		const teamColor = team.teamId === 100 ? '레드팀' : '블루팀';
+		const teamInfo = team.teamId === 100 ? redTeam : blueTeam;
+		const result = teamInfo[0].win ? '승리' : '패배';
+		
+		return <table key={team} className={'teamDetailWrapper'}>
+			<thead className={'teamDetailHeader'}>
+			<tr>
+				<th colSpan={'3'}>{result} ({teamColor})</th>
+				<th>KDA</th>
+				<th colSpan={'2'}>피해량</th>
+				<th>와드</th>
+				<th>CS</th>
+				<th colSpan={'3'}>아이템</th>
+			</tr>
+			</thead>
+			<tbody className={teamInfo[0].win ? 'winComponent' : 'loseComponent'}>
+			{
+				teamInfo.map((member) => {
+					return <tr key={member.puuid}>
+						<th colSpan={'3'}>
+							<div className={'basicInfo'}>
+								<div className={'championImageWrapper'}>
+									<img
+										className={'championImage'}
+										src={getChampionIconByChampionName(member.championName)}
+										onError={onError}
+									/>
+									<div className={'level'}>{member.champLevel}</div>
+								</div>
+								<div className={'spellWrapper'}>
+									<img
+										src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(member.summoner1Id))}
+									/>
+									<img
+										src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(member.summoner2Id))}
+									/>
+								</div>
+								<div className={'perkWrapper'}>
+									<PerkIcon type={'primary'} />
+									<PerkIcon type={'sub'} />
+								</div>
+								
+								<div className={'playerName'}>
+									<p>{member.riotIdGameName}</p>
+									<p>Diamond 2</p>
+								</div>
+							</div>
+						</th>
+						<th>
+							<div className={'scoreWrapper'}>
+								<p>{member.kills}/{member.deaths}/{member.assists}</p>
+								<p className={'grade'}>{getKda(member)}:1</p>
+							</div>
+						</th>
+						<th colSpan={'2'}>
+							<div className={'damageWrapper'}>
+								<div className={'progress'}>
+									<p>{member.totalDamageDealtToChampions.toLocaleString('ko-KR')}</p>
+									<div className={'barChart'}>
+										<div className={'fill'} style={{width: '54%'}}></div>
+									</div>
+								</div>
+								<div className={'progress'}>
+									<p>{member.totalDamageTaken.toLocaleString('ko-KR')}</p>
+									<div className={'barChart-taken'}>
+										<div className={'fill'} style={{width: '70%'}}></div>
+									</div>
+								</div>
+							</div>
+						</th>
+						<th>
+							<div className={'wardWrapper'}>
+								<p>{member.visionWardsBoughtInGame}</p>
+								<p>{member.wardsPlaced} / {member.wardsKilled}</p>
+							</div>
+						</th>
+						<th>
+							<div className={'csWrapper'}>
+								<p>{member.totalMinionsKilled}</p>
+								<p>분당 {getPerKillingMinion(member)}</p>
+							</div>
+						</th>
+						<th colSpan={'3'}>
+							<div className={'itemWrapper'}>
+								{[0, 1, 2, 3, 4, 5].map((itemNum) => {
+									return <ItemImageComponent key={itemNum} data={member} itemNum={itemNum} />;
+								})}
+								<img
+									className={'ward'}
+									src={getItemImageByItemNum(myData.item6)} />
+							</div>
+						
+						</th>
+					</tr>;
+				})
+			}
+			</tbody>
+		</table>;
+	};
+	
 	return (
-		<section className={`matchComponent ${myData.win ? 'winComponent' : 'loseComponent'}`}>
-			<LeftBorder />
-			<div className={'matchInfo'}>
-				<div>
-					<p className={'rankType'}><b>랭크</b></p>
-					<p>{dateDiff()}</p>
-				</div>
-				<div className={'hr'}></div>
-				<div>
-					<p><b>{myData.win ? '승리' : '패배'}</b></p>
-					<p>{getDuration()}</p>
-				</div>
-			</div>
-			<div className={'championInfo'}>
-				<div>
-					<div className={'basicInfo'}>
-						<div className={'championImageWrapper'}>
-							<img
-								className={'championImage'}
-								src={getChampionIconByChampionName(myData.championName)}
-								onError={onError}
-							/>
-							<div className={'level'}>{myData.champLevel}</div>
+		<>
+			<section className={`matchComponentWrapper`}>
+				<div className={`matchComponent ${myData.win ? 'winComponent' : 'loseComponent'}`}>
+					<LeftBorder />
+					<div className={'matchInfo'}>
+						<div>
+							<p className={'rankType'}><b>랭크</b></p>
+							<p>{dateDiff()}</p>
 						</div>
-						<div className={'spellWrapper'}>
-							<img
-								src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(myData.summoner1Id))}
-							/>
-							<img
-								src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(myData.summoner2Id))}
-							/>
-						</div>
-						<div className={'runeWrapper'}>
-							<img
-								className={'rune'}
-								src={'https://opgg-static.akamaized.net/meta/images/lol/perk/8229.png?image=q_auto,f_webp,w_64,h_64&v=1702977255104'} />
-							<img
-								src='https://opgg-static.akamaized.net/meta/images/lol/perkStyle/8000.png?image=q_auto,f_webp,w_64,h_64&v=1702977255104' />
-						</div>
-						<div className={'scoreWrapper'}>
-							<p><b>{myData.kills} / <span>{myData.deaths}</span> / {myData.assists}</b></p>
-							<p className={'grade'}>{getKda()}:1 평점</p>
+						<div className={'hr'}></div>
+						<div>
+							<p><b>{myData.win ? '승리' : '패배'}</b></p>
+							<p>{getDuration()}</p>
 						</div>
 					</div>
-					<div className={'detailInfo'}>
-						<p className={'killContribution'}>킬관여 {getKillParticipation()}%</p>
-						<p>제어 와드 {myData.visionWardsBoughtInGame}</p>
-						<p>CS {myData.totalMinionsKilled} ({getPerKillingMinion()})</p>
-						<p>Gold 3</p>
+					<div className={'championInfo'}>
+						<div>
+							<div className={'basicInfo'}>
+								<div className={'championImageWrapper'}>
+									<img
+										className={'championImage'}
+										src={getChampionIconByChampionName(myData.championName)}
+										onError={onError}
+									/>
+									<div className={'level'}>{myData.champLevel}</div>
+								</div>
+								<div className={'spellWrapper'}>
+									<img
+										src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(myData.summoner1Id))}
+									/>
+									<img
+										src={getSummonerSpellImageBySpellName(getSpellNameBySpellCode(myData.summoner2Id))}
+									/>
+								</div>
+								<div className={'perkWrapper'}>
+									<PerkIcon type={'primary'} />
+									<PerkIcon type={'sub'} />
+								</div>
+								<div className={'scoreWrapper'}>
+									<p><b>{myData.kills} / <span>{myData.deaths}</span> / {myData.assists}</b></p>
+									<p className={'grade'}>{getKda(myData)}:1 평점</p>
+								</div>
+							</div>
+							<div className={'detailInfo'}>
+								<p className={'killContribution'}>킬관여 {getKillParticipation()}%</p>
+								<p>제어 와드 {myData.visionWardsBoughtInGame}</p>
+								<p>CS {myData.totalMinionsKilled} ({getPerKillingMinion(myData)})</p>
+								<p>Gold 3</p>
+							</div>
+						</div>
+						<div>
+							<div className={'itemInfo'}>
+								{[0, 1, 2, 3, 4, 5].map((itemNum) => {
+									return <ItemImageComponent key={itemNum} data={myData} itemNum={itemNum} />;
+								})}
+								<img
+									className={'ward'}
+									src={getItemImageByItemNum(myData.item6)} />
+							</div>
+							<div className={'contribution'}>8th</div>
+						</div>
+					</div>
+					<div className={'teamInfo'}>
+						{
+							teamData.map((playerData, index) => {
+								return <PlayerComponent key={playerData.puuid} playerData={playerData} />;
+							})
+						}
+					</div>
+					<div className={'toggleBtn'} onClick={() => setToggleTeamDetailInfo(!toggleTeamDetailInfo)}>
+						
+						<IoIosArrowDown className={`arrowIcon ${toggleTeamDetailInfo ? 'rotate' : ''}`} />
 					</div>
 				</div>
-				<div>
-					<div className={'itemInfo'}>
-						{[0, 1, 2, 3, 4, 5].map((itemNum) => {
-							return <ItemImageComponent key={itemNum} itemNum={itemNum} />;
-						})}
-						<img
-							className={'ward'}
-							src={getItemImageByItemNum(myData.item6)} />
-					</div>
-					<div className={'contribution'}>8th</div>
-				</div>
-			</div>
-			<div className={'teamInfo'}>
-				{
-					teamData.map((playerData, index) => {
-						return <PlayerComponent key={playerData.puuid} playerData={playerData} />;
-					})
+				{toggleTeamDetailInfo &&
+					<section className={'matchDetailWrapper'}>
+						{
+							gameInfo?.teams && gameInfo.teams.map((team) => {
+								return <TeamComponent key={team.teamId} team={team} />;
+							})
+						}
+					
+					</section>
 				}
-			</div>
-			<div className={'toggleBtn'}></div>
-		</section>
+			</section>
+		
+		</>
 	);
 };
 

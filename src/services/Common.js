@@ -1,4 +1,5 @@
 import {opggInstance, riotInstance} from '../modules/axios/interceptor';
+import perkData from 'data/perk.json';
 
 export const checkOpgg = async (summonerName) => {
 	try {
@@ -20,4 +21,25 @@ export const checkRiot = async (summonerName, tagLine) => {
 		console.log(error);
 		return 'error';
 	}
+};
+
+/**
+ * perkId가 있는 경우 primary
+ * perkId가 없는 경우 sub
+ * urlpath 반환
+ */
+export const getPerkInfoByPerkId = (style, perkId) => {
+	const perks = perkData;
+	const perk = perks.find((_perk) => {
+		return _perk.id === style;
+	});
+	
+	if (perkId) {
+		let rune = perk.slots[0].runes.find((rune) => {
+			return rune.id === perkId;
+		});
+		return rune.icon;
+	}
+	
+	return perk.icon;
 };

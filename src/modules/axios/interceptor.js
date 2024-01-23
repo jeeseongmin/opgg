@@ -25,7 +25,7 @@ riotInstance.interceptors.request.use(
 	(config) => {
 		config.headers['Content-Type'] = 'application/json';
 		// config.headers['X-Riot-Token'] = process.env.REACT_APP_RIOT_API_KEY;
-		config.headers['X-Riot-Token'] = 'RGAPI-d13f48ba-bbee-4f15-a40a-9d07452ba1ea';
+		config.headers['X-Riot-Token'] = 'RGAPI-9db2d42d-330e-48e1-b428-19717dd4201d';
 		
 		return config;
 	},
