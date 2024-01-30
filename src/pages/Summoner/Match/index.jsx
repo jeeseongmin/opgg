@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import 'pages/Summoner/Match/Match.scss';
 import {getMatchById} from 'services/Match';
 import {
 	getChampionIconByChampionName,
@@ -10,8 +11,7 @@ import {getSpellNameBySpellCode} from 'services/Spell';
 import {getPerkInfoByPerkId} from 'services/Common';
 import {IoIosArrowDown} from 'react-icons/io';
 
-const Match = ({matchId, fullName}) => {
-	const [gameName, tag] = fullName.split('-');
+const Match = ({matchId, gameName}) => {
 	const [myData, setMyData] = useState({});
 	const [toggleTeamDetailInfo, setToggleTeamDetailInfo] = useState(false);
 	const [gameInfo, setGameInfo] = useState({});
@@ -24,7 +24,7 @@ const Match = ({matchId, fullName}) => {
 	}, [matchId]);
 	
 	const getMatchInfo = async () => {
-		const {data} = await getMatchById(matchId);
+		const data = await getMatchById(matchId);
 		setGameInfo(data.info);
 		const participants = data.info.participants;
 		
@@ -68,6 +68,7 @@ const Match = ({matchId, fullName}) => {
 	}, [gameInfo]);
 	
 	function dateDiff() {
+		console.log(gameInfo);
 		let endTime = gameInfo.gameEndTimestamp;
 		if (!endTime) return null;
 		let before_date = Math.floor(new Date(endTime).getTime() / 1000);
@@ -101,6 +102,7 @@ const Match = ({matchId, fullName}) => {
 		let itemCode = data[`item${itemNum}`];
 		if (itemCode === 0) return <div className={'emptyItem'}></div>;
 		return <img
+			className={'emptyItem'}
 			src={getItemImageByItemNum(data[`item${itemNum}`])} />;
 	};
 	
@@ -122,8 +124,8 @@ const Match = ({matchId, fullName}) => {
 	const getKillParticipation = () => {
 		if (!myData.challenges) return 0;
 		let killParticipation = myData.challenges.killParticipation;
-		killParticipation = Math.round(killParticipation.toFixed(2) * 100) / 100;
-		return killParticipation * 100;
+		killParticipation = Math.round(killParticipation.toFixed(2) * 100);
+		return killParticipation;
 	};
 	
 	const getPerKillingMinion = (data) => {

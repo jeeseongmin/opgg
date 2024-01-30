@@ -11,8 +11,11 @@ import {getAccountPuuidByNameAndTag} from 'services/Account';
 
 const Summoner = () => {
 	const {fullName} = useParams();
-	const [gameName, tag] = fullName.split('-');
 	
+	const [nameInfo, setNameInfo] = useState({
+		gameName: '',
+		tag: '',
+	});
 	const [summonerInfo, setSummonerInfo] = useState({});
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
@@ -23,8 +26,13 @@ const Summoner = () => {
 	}, []);
 	
 	const getInfo = async () => {
-		const puuid = await getAccountPuuidByNameAndTag(gameName, tag);
-		const _summonerInfo = await getSummonerByPuuid(puuid);
+		const [_gameName, _tag] = fullName;
+		const data = await getAccountPuuidByNameAndTag(_gameName, _tag);
+		const _summonerInfo = await getSummonerByPuuid(data.puuid);
+		setNameInfo({
+			gameName: data.gameName,
+			tag: data.tagLine,
+		});
 		setSummonerInfo(_summonerInfo);
 		const _leagueList = await getLeaguesBySummonerId(
 			_summonerInfo.id,
@@ -76,8 +84,8 @@ const Summoner = () => {
 						
 						<div className={'summonerInfo'}>
 							<div className={'summonerIntro'}>
-								<span className={'summonerName'}>{gameName}</span>
-								<span className={'tagName'}>#{tag}</span>
+								<span className={'summonerName'}>{nameInfo.gameName}</span>
+								<span className={'tagName'}>#{nameInfo.tag}</span>
 							</div>
 							<div className={'prevName'}>Prev. {summonerInfo.name}</div>
 							<div>
@@ -112,7 +120,7 @@ const Summoner = () => {
 						<div className={'matchList'}>
 							{
 								matchList.length > 0 && matchList.map((matchId, index) => {
-									return <Match key={matchId} matchId={matchId} fullName={fullName} />;
+									return <Match key={matchId} matchId={matchId} gameName={nameInfo.gameName} />;
 								})
 							}
 						</div>
