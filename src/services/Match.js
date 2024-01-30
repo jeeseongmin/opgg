@@ -1,4 +1,5 @@
 import {riotInstance} from 'modules/axios/interceptor';
+import dummy from 'data/dummy.json';
 
 export const getMatchListByPuuid = async (puuid, cnt) => {
 	try {
@@ -6,7 +7,7 @@ export const getMatchListByPuuid = async (puuid, cnt) => {
 		
 		return data;
 	} catch (error) {
-		console.log(error);
+		return dummy.matchList;
 	}
 };
 
@@ -14,9 +15,9 @@ export const getMatchById = async (matchID) => {
 	try {
 		const res = await riotInstance.get(`/asia/lol/match/v5/matches/${matchID}`);
 		
-		return res;
+		return res.data;
 	} catch (error) {
-		console.log(error);
+		return dummy.matchInfo[matchID];
 	}
 };
 

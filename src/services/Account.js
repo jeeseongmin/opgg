@@ -1,4 +1,5 @@
 import {riotInstance} from 'modules/axios/interceptor';
+import dummy from 'data/dummy.json';
 
 export const getAccountPuuidByNameAndTag = async (summonerName, tagLine) => {
 	try {
@@ -6,6 +7,6 @@ export const getAccountPuuidByNameAndTag = async (summonerName, tagLine) => {
 		
 		return data.puuid;
 	} catch (error) {
-		console.log(error);
+		return dummy.accountInfo;
 	}
 };

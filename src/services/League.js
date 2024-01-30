@@ -1,4 +1,5 @@
 import {riotInstance} from 'modules/axios/interceptor';
+import dummy from 'data/dummy.json';
 
 export const getLeaguesBySummonerId = async (summonerId) => {
 	try {
@@ -6,6 +7,6 @@ export const getLeaguesBySummonerId = async (summonerId) => {
 		
 		return data;
 	} catch (error) {
-		console.log(error);
+		return dummy.leagueInfo;
 	}
 };

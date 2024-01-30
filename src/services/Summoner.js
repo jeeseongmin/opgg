@@ -1,4 +1,5 @@
 import {opggInstance, riotInstance} from 'modules/axios/interceptor';
+import dummy from 'data/dummy.json';
 
 export const getSummonersByName = async (summonerName) => {
 	try {
@@ -6,7 +7,8 @@ export const getSummonersByName = async (summonerName) => {
 		
 		return data.data;
 	} catch (error) {
-		console.log('error : ', error);
+		return dummy.summonerData.data;
+		
 	}
 };
 
@@ -16,6 +18,6 @@ export const getSummonerByPuuid = async (puuid) => {
 		
 		return data;
 	} catch (error) {
-		console.log(error);
+		return dummy.summonerInfo;
 	}
 };
