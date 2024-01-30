@@ -5,9 +5,10 @@ import RankInfo from 'components/Summoner/RankInfo';
 import Match from 'pages/Summoner/Match/index';
 import {getSummonerByPuuid} from 'services/Summoner';
 import {getLeaguesBySummonerId} from 'services/League';
-import {getSummonerIconByIconNum} from 'services/Image';
+import {getChampionIconByChampionName, getSummonerIconByIconNum} from 'services/Image';
 import {getMatchListByPuuid} from 'services/Match';
 import {getAccountPuuidByNameAndTag} from 'services/Account';
+import data from 'data/dummy.json';
 
 const Summoner = () => {
 	const {fullName} = useParams();
@@ -19,7 +20,14 @@ const Summoner = () => {
 	const [summonerInfo, setSummonerInfo] = useState({});
 	const [soloRankInfo, setSoloRankInfo] = useState({});
 	const [flexRankInfo, setFlexRankInfo] = useState({});
+	const [season, setSeason] = useState('S2024 S1');
 	const [matchList, setMatchList] = useState([]);
+	const [mostRankChampions, setMostRankchampions] = useState([...data.mostChampions.soloRank,
+	]);
+	
+	useEffect(() => {
+		getMostRankChampions();
+	}, [season]);
 	
 	useEffect(() => {
 		getInfo();
@@ -52,6 +60,11 @@ const Summoner = () => {
 		}
 	};
 	
+	const getMostRankChampions = () => {
+		if (season === '자유랭크') setMostRankchampions([...data.mostChampions.flexRank]);
+		setMostRankchampions([...data.mostChampions.soloRank]);
+	};
+	
 	const onError = ({currentTarget}) => {
 		currentTarget.onerror = null;
 		currentTarget.src = `/images/championImages/${currentTarget.id}_0.jpg`;
@@ -66,6 +79,32 @@ const Summoner = () => {
 			)}
 			onError={onError}
 		/>;
+	};
+	
+	const MostRankChampions = () => {
+		if (mostRankChampions.length === 0) return <div className={'emptySeason'}>기록된 전적이 없습니다.</div>;
+		return <div className={'mostChampionWrapper'}>
+			{mostRankChampions.map((championInfo) => {
+					return <div className={'mostChampion'} key={championInfo.championId}>
+						<div className={'rowColumn'}>
+							<img src={getChampionIconByChampionName(championInfo.championId)} />
+							<div className={'infoColumn'}>
+								<p>{championInfo.championName}</p>
+								<p>CS {championInfo.cs} ({championInfo.csAverage})</p>
+							</div>
+						</div>
+						<div className={'infoColumn'}>
+							<p>{championInfo.grade}:1 평점</p>
+							<p>{championInfo.kill} / {championInfo.death} / {championInfo.assist}</p>
+						</div>
+						<div className={'infoColumn'}>
+							<p>{championInfo.percentOfWinning}%</p>
+							<p>{championInfo.playCount} 게임</p>
+						</div>
+					</div>;
+				},
+			)}
+		</div>;
 		
 	};
 	
@@ -113,7 +152,7 @@ const Summoner = () => {
 								<button>솔로랭크</button>
 								<button>자유랭크</button>
 							</div>
-							<div>body</div>
+							<MostRankChampions />
 						</div>
 					</div>
 					<section className={'matchesWrapper'}>

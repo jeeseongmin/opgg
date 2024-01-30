@@ -34864,5 +34864,94 @@
         "tournamentCode": ""
       }
     }
+  },
+  "mostChampions": {
+    "soloRank": [
+      {
+        "championId": "Yone",
+        "championName": "요네",
+        "cs": 263.1,
+        "csAverage": 1,
+        "kill": 6.2,
+        "death": 3.9,
+        "assist": 7.2,
+        "grade": 3.46,
+        "percentOfWinning": 67,
+        "playCount": 9
+      },
+      {
+        "championId": "Leblanc",
+        "championName": "르블랑",
+        "cs": 222.3,
+        "csAverage": 7.6,
+        "kill": 7.8,
+        "death": 3.4,
+        "assist": 8.1,
+        "grade": 4.7,
+        "percentOfWinning": 50,
+        "playCount": 9
+      },
+      {
+        "championId": "Akali",
+        "championName": "아칼리",
+        "cs": 195.1,
+        "csAverage": 7.7,
+        "kill": 7.9,
+        "death": 3.9,
+        "assist": 5.3,
+        "grade": 3.41,
+        "percentOfWinning": 43,
+        "playCount": 7
+      },
+      {
+        "championId": "Hwei",
+        "championName": "흐웨이",
+        "cs": 178.2,
+        "csAverage": 8.3,
+        "kill": 3.7,
+        "death": 3.2,
+        "assist": 5.8,
+        "grade": 3.1,
+        "percentOfWinning": 50,
+        "playCount": 6
+      },
+      {
+        "championId": "Azir",
+        "championName": "아지르",
+        "cs": 281.8,
+        "csAverage": 9.8,
+        "kill": 6.0,
+        "death": 3.0,
+        "assist": 9.4,
+        "grade": 5.13,
+        "percentOfWinning": 80,
+        "playCount": 5
+      },
+      {
+        "championId": "Sylas",
+        "championName": "사일러스",
+        "cs": 222.8,
+        "csAverage": 7.5,
+        "kill": 12.6,
+        "death": 4.6,
+        "assist": 8.4,
+        "grade": 4.57,
+        "percentOfWinning": 60,
+        "playCount": 5
+      },
+      {
+        "championId": "Tristana",
+        "championName": "트리스타나",
+        "cs": 258.8,
+        "csAverage": 8.6,
+        "kill": 6.8,
+        "death": 4.8,
+        "assist": 4.5,
+        "grade": 2.37,
+        "percentOfWinning": 25,
+        "playCount": 4
+      }
+    ],
+    "flexRank": []
   }
 }

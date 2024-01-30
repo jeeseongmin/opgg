@@ -68,7 +68,6 @@ const Match = ({matchId, gameName}) => {
 	}, [gameInfo]);
 	
 	function dateDiff() {
-		console.log(gameInfo);
 		let endTime = gameInfo.gameEndTimestamp;
 		if (!endTime) return null;
 		let before_date = Math.floor(new Date(endTime).getTime() / 1000);

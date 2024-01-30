@@ -243,7 +243,9 @@ nav {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
           border-bottom: 1px solid $main-gray200;
+        }
 
+        & > div {
           button {
             font-size: 14px;
             height: 40px;
@@ -263,6 +265,75 @@ nav {
           .selected {
             color: $main-blue500;
             font-weight: 800;
+          }
+        }
+
+
+        .emptySeason {
+          height: 160px;
+          display: flex;
+          padding-top: 50px;
+          justify-content: center;
+          align-items: center;
+          color: $main-gray400;
+          font-size: 15px;
+          background-image: url("https://s-lol-web.op.gg/images/icon/icon-nodata.svg");
+          background-repeat: no-repeat;
+          background-position: 50% 55px;
+        }
+
+
+        .mostChampion {
+          height: auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          gap: 12px;
+          height: auto;
+          padding: 8px 12px;
+          font-size: 12px;
+
+          .rowColumn {
+            display: flex;
+            flex-direction: row;
+            gap: 14px;
+
+            img {
+              height: 30px;
+              border-radius: 100px;
+            }
+          }
+
+          & > div:nth-of-type(1) {
+            justify-content: center;
+          }
+
+          .infoColumn {
+            display: flex;
+            flex-direction: column;
+
+            & > p:nth-of-type(1) {
+              font-weight: bold;
+            }
+
+            & > p:nth-of-type(2) {
+              color: $main-gray500;
+            }
+
+            &:nth-of-type(1) {
+              width: 80px;
+            }
+
+            &:nth-of-type(2) {
+              width: 90px;
+              align-items: center;
+            }
+
+            &:nth-of-type(3) {
+              width: 50px;
+              align-items: flex-end;
+            }
+
           }
         }
       }
