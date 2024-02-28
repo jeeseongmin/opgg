@@ -142,7 +142,6 @@ const Match = ({matchId, gameName}) => {
 						}
 					</div>
 					<div className={'toggleBtn'} onClick={() => setToggleTeamDetailInfo(!toggleTeamDetailInfo)}>
-						
 						<IoIosArrowDown className={`arrowIcon ${toggleTeamDetailInfo ? 'rotate' : ''}`} />
 					</div>
 				</div>
