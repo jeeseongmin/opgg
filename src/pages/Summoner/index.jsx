@@ -62,7 +62,7 @@ const Summoner = () => {
 	
 	const getMostRankChampions = () => {
 		if (season === '자유랭크') setMostRankchampions([...data.mostChampions.flexRank]);
-		setMostRankchampions([...data.mostChampions.soloRank]);
+		else setMostRankchampions([...data.mostChampions.soloRank]);
 	};
 	
 	const onError = ({currentTarget}) => {
@@ -159,11 +159,15 @@ const Summoner = () => {
 						)}
 						<div className={'championInfoWrapper'}>
 							<div>
-								<button className={'selected'}>
+								<button onClick={() => setSeason('S2024 S1')} className={`${season === 'S2024 S1' ? 'selected' : ''}`}>
 									<div>S2024 S1</div>
 								</button>
-								<button>솔로랭크</button>
-								<button>자유랭크</button>
+								<button onClick={() => setSeason('솔로랭크')} className={`${season === '솔로랭크' ? 'selected' : ''}`}>
+									<div>솔로랭크</div>
+								</button>
+								<button onClick={() => setSeason('자유랭크')} className={`${season === '자유랭크' ? 'selected' : ''}`}>
+									<div>자유랭크</div>
+								</button>
 							</div>
 							<MostRankChampions />
 						</div>
