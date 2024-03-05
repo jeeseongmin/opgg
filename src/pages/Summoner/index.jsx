@@ -81,6 +81,19 @@ const Summoner = () => {
 		/>;
 	};
 	
+	const getColor = ({type, point}) => {
+		if (type === 'grade') {
+			if (point >= 5) return 'best';
+			else if (point >= 4) return 'excellent';
+			else if (point >= 3) return 'good';
+			else return 'normal';
+		} else {
+			if (point >= 50) return 'excellent';
+			else return 'normal';
+		}
+		
+	};
+	
 	const MostRankChampions = () => {
 		if (mostRankChampions.length === 0) return <div className={'emptySeason'}>기록된 전적이 없습니다.</div>;
 		return <div className={'mostChampionWrapper'}>
@@ -93,11 +106,11 @@ const Summoner = () => {
 								<p>CS {championInfo.cs} ({championInfo.csAverage})</p>
 							</div>
 						</div>
-						<div className={'infoColumn'}>
+						<div className={`infoColumn ${getColor({type: 'grade', point: championInfo.grade})}`}>
 							<p>{championInfo.grade}:1 평점</p>
 							<p>{championInfo.kill} / {championInfo.death} / {championInfo.assist}</p>
 						</div>
-						<div className={'infoColumn'}>
+						<div className={`infoColumn ${getColor({type: 'percentOfWinning', point: championInfo.percentOfWinning})}`}>
 							<p>{championInfo.percentOfWinning}%</p>
 							<p>{championInfo.playCount} 게임</p>
 						</div>

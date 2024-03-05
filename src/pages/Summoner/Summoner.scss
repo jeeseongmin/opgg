@@ -313,7 +313,7 @@ nav {
             flex-direction: column;
 
             & > p:nth-of-type(1) {
-              font-weight: bold;
+              font-weight: 600;
             }
 
             & > p:nth-of-type(2) {
@@ -333,7 +333,22 @@ nav {
               width: 50px;
               align-items: flex-end;
             }
+          }
 
+          .best {
+            color: $main-blue500;
+          }
+
+          .excellent {
+            color: $main-red500;
+          }
+
+          .good {
+            color: $green;
+          }
+
+          .normal {
+            color: $main-gray400;
           }
         }
       }
