@@ -38,10 +38,6 @@ const Match = ({matchId, gameName}) => {
 		}
 	};
 	
-	const LeftBorder = () => {
-		return <div className={'leftBorder'}></div>;
-	};
-	
 	const onError = ({currentTarget}) => {
 		currentTarget.onerror = null;
 		currentTarget.src = `/images/championImages/${'ziggs'}_0.jpg`;
@@ -73,7 +69,7 @@ const Match = ({matchId, gameName}) => {
 		<>
 			<section className={`matchComponentWrapper`}>
 				<div className={`matchComponent ${myData.win ? 'winComponent' : 'loseComponent'}`}>
-					<LeftBorder />
+					<div className={'leftBorder'}></div>
 					<div className={'matchInfo'}>
 						<div>
 							<p className={'rankType'}><b>랭크</b></p>
