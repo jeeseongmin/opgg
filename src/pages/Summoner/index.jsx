@@ -160,13 +160,13 @@ const Summoner = () => {
 						<div className={'championInfoWrapper'}>
 							<div>
 								<button onClick={() => setSeason('S2024 S1')} className={`${season === 'S2024 S1' ? 'selected' : ''}`}>
-									<div>S2024 S1</div>
+									S2024 S1
 								</button>
 								<button onClick={() => setSeason('솔로랭크')} className={`${season === '솔로랭크' ? 'selected' : ''}`}>
-									<div>솔로랭크</div>
+									솔로랭크
 								</button>
 								<button onClick={() => setSeason('자유랭크')} className={`${season === '자유랭크' ? 'selected' : ''}`}>
-									<div>자유랭크</div>
+									자유랭크
 								</button>
 							</div>
 							<MostRankChampions />
