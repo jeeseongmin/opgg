@@ -5,10 +5,13 @@ import RankInfo from 'components/Summoner/RankInfo';
 import Match from 'pages/Summoner/Match/index';
 import {getSummonerByPuuid} from 'services/Summoner';
 import {getLeaguesBySummonerId} from 'services/League';
-import {getChampionIconByChampionName, getSummonerIconByIconNum} from 'services/Image';
+import {getSummonerIconByIconNum} from 'services/Image';
 import {getMatchListByPuuid} from 'services/Match';
 import {getAccountPuuidByNameAndTag} from 'services/Account';
 import data from 'data/dummy.json';
+import MatchInfo from 'pages/Summoner/Match/MatchInfo';
+import ChampionImage from 'components/Image/ChampionRoundImage';
+import {getColorClass} from 'utils/CommonUtils';
 
 const Summoner = () => {
 	const {fullName} = useParams();
@@ -81,36 +84,26 @@ const Summoner = () => {
 		/>;
 	};
 	
-	const getColor = ({type, point}) => {
-		if (type === 'grade') {
-			if (point >= 5) return 'best';
-			else if (point >= 4) return 'excellent';
-			else if (point >= 3) return 'good';
-			else return 'normal';
-		} else {
-			if (point >= 50) return 'excellent';
-			else return 'normal';
-		}
-		
-	};
-	
 	const MostRankChampions = () => {
 		if (mostRankChampions.length === 0) return <div className={'emptySeason'}>기록된 전적이 없습니다.</div>;
 		return <div className={'mostChampionWrapper'}>
 			{mostRankChampions.map((championInfo) => {
 					return <div className={'mostChampion'} key={championInfo.championId}>
 						<div className={'rowColumn'}>
-							<img src={getChampionIconByChampionName(championInfo.championId)} />
+							<ChampionImage championId={championInfo.championId} />
 							<div className={'infoColumn'}>
 								<p>{championInfo.championName}</p>
 								<p>CS {championInfo.cs} ({championInfo.csAverage})</p>
 							</div>
 						</div>
-						<div className={`infoColumn ${getColor({type: 'grade', point: championInfo.grade})}`}>
+						<div className={`infoColumn ${getColorClass({type: 'grade', point: championInfo.grade})}`}>
 							<p>{championInfo.grade}:1 평점</p>
 							<p>{championInfo.kill} / {championInfo.death} / {championInfo.assist}</p>
 						</div>
-						<div className={`infoColumn ${getColor({type: 'percentOfWinning', point: championInfo.percentOfWinning})}`}>
+						<div className={`infoColumn ${getColorClass({
+							type: 'percentOfWinning',
+							point: championInfo.percentOfWinning,
+						})}`}>
 							<p>{championInfo.percentOfWinning}%</p>
 							<p>{championInfo.playCount} 게임</p>
 						</div>
@@ -173,6 +166,7 @@ const Summoner = () => {
 						</div>
 					</div>
 					<section className={'matchesWrapper'}>
+						<MatchInfo />
 						<div className={'matchList'}>
 							{
 								matchList.length > 0 && matchList.map((matchId, index) => {
