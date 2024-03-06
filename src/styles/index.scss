@@ -24,6 +24,7 @@ $purple: #4171D6;
 $white: #fff;
 $yellow: #FFB900;
 $black: #000;
+$orange: #F06F00;
 $light-gray: #F7F7F9;
 $green: #00BBA3;
 $gray: #9AA4AF;
@@ -86,4 +87,24 @@ main {
 p {
   margin: 0;
   padding: 0;
+}
+
+.top {
+  color: $orange;
+}
+
+.best {
+  color: $main-blue500;
+}
+
+.excellent {
+  color: $main-red500;
+}
+
+.good {
+  color: $green;
+}
+
+.normal {
+  color: $main-gray400;
 }
