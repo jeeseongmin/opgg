@@ -1,12 +1,36 @@
-$main-blue: #5383E8;
-$light-blue: #B3CDFF;
+$main-blue100: #ECF2FF;
+$main-blue200: #D5E3FF;
+$main-blue300: #B3CDFF;
+$main-blue400: #81ACFF;
+$main-blue500: #5383E8;
+
+$main-red100: #FFF1F3;
+$main-red200: #FFD8D9;
+$main-red300: #FFBAC3;
+$main-red400: #FF6C81;
+$main-red500: #E84057;
+
+$main-gray100: #F7F7F9;
+$main-gray200: #ebeef1;
+$main-gray250: #DBE0E4;
+$main-gray300: #C3CBD1;
+$main-gray400: #9AA4AF;
+$main-gray500: #758592;
+$main-gray600: #57646F;
+$main-gray700: #44515C;
+$main-gray800: #34414D;
+
 $purple: #4171D6;
 $white: #fff;
 $yellow: #FFB900;
 $black: #000;
+$orange: #F06F00;
 $light-gray: #F7F7F9;
+$green: #00BBA3;
 $gray: #9AA4AF;
+$dark-gray: #626267;
 $light-gray: #ebeef1;
+$very-light-gray: #F7F7F9;
 
 html, body {
   font-family: "Apple SD Gothic Neo", '__Roboto_2d0052', '__Roboto_Fallback_2d0052', sans-serif, system-ui, sans-serif;
@@ -52,4 +76,35 @@ button {
 
 a {
   text-decoration: none;
+}
+
+main {
+  height: 100%;
+  min-width: 1080px;
+  padding: 0px 12px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.top {
+  color: $orange;
+}
+
+.best {
+  color: $main-blue500;
+}
+
+.excellent {
+  color: $main-red500;
+}
+
+.good {
+  color: $green;
+}
+
+.normal {
+  color: $main-gray400;
 }

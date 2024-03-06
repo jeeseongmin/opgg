@@ -1,15 +1,15 @@
 @import "/src/styles/index";
 
-.headerWrapper {
+header {
   min-width: 1080px;
   height: 50px;
-  background-color: $main-blue;
+  background-color: $main-blue500;
   border: 1px solid $purple;
   display: block;
   padding: 0px 12px;
 }
 
-header {
+.headerContents {
   position: relative;
   display: flex;
   justify-content: center;
@@ -29,7 +29,7 @@ header {
     }
 
     .routeBtn {
-      color: $light-blue;
+      color: $main-blue300;
       font-size: 15px;
       line-height: 22px;
       display: flex;

@@ -1,11 +1,8 @@
-@import "../../styles/index";
+@import "/src/styles/index";
 
 .homeWrapper {
-  height: 100%;
-  background-color: $main-blue;
-  min-width: 1080px;
-  padding: 0px 12px;
-
+  background-color: $main-blue500;
+  border: 1px solid $purple;
 }
 
 .home {
@@ -43,7 +40,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    background-color: white;
+    background-color: $white;
     border-radius: 30px;
     height: 60px;
     text-align: left;
@@ -192,7 +189,7 @@
 
     .previewListWrapper {
       top: 52px;
-      background-color: white;
+      background-color: $white;
       position: absolute;
       width: 95%;
       height: auto;
@@ -216,6 +213,7 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
+        color: $black;
 
         &:hover {
           background-color: $light-gray;
