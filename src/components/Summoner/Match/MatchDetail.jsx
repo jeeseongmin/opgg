@@ -47,7 +47,7 @@ const MatchDetail = ({playerData, team, teamInfo, gameInfo}) => {
 							</div>
 							
 							<div className={'playerName'}>
-								<p>{member.riotIdGameName}</p>
+								<p>{member.riotIdGameName || member.summonerName}</p>
 								<p>Diamond 2</p>
 							</div>
 						</div>
