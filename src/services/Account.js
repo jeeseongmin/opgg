@@ -3,7 +3,6 @@ import dummy from 'data/dummy.json';
 
 export const getAccountPuuidByNameAndTag = async (summonerName, tagLine) => {
 	try {
-		console.log('api : ', summonerName, tagLine);
 		const {data} = await riotInstance.get(`/asia/riot/account/v1/accounts/by-riot-id/${summonerName}/${tagLine}`);
 		
 		return data;

@@ -7,7 +7,6 @@ const useMenu = ({menuName}) => {
 	);
 	
 	useEffect(() => {
-		console.log('menuName : ', menuName);
 		setSelectedMenu(menuName);
 	}, []);
 	

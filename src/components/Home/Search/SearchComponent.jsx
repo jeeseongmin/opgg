@@ -28,7 +28,6 @@ const SearchComponent = () => {
 			setSummonerList(_summonerList.slice(0, 4));
 			const _championList = getChampionListByName(searchText);
 			setChampionList(_championList);
-			console.log(_summonerList[0]);
 		} else {
 			setSummonerList([]);
 			setChampionList([]);
@@ -54,7 +53,6 @@ const SearchComponent = () => {
 	
 	const searchSummoner = () => {
 		const {game_name, tagline} = summonerList[0];
-		console.log(summonerList[0]);
 		navigate(`/summoners/${game_name}-${tagline}`, {replace: true});
 	};
 	
