@@ -280,7 +280,6 @@ nav {
           background-position: 50% 55px;
         }
 
-
         .mostChampion {
           height: auto;
           display: flex;
@@ -346,6 +345,13 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 12px;
+      }
+
+      .emptyList {
+        display: flex;
+        height: 200px;
+        justify-content: center;
+        align-items: center;
       }
 
     }

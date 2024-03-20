@@ -6,13 +6,14 @@ import Match from 'pages/Summoner/Match/index';
 import {getSummonerByPuuid} from 'services/Summoner';
 import {getLeaguesBySummonerId} from 'services/League';
 import {getSummonerIconByIconNum} from 'services/Image';
-import {getMatchListByPuuid, getMatchListBySummonerId} from 'services/Match';
+import {getMatchListByPuuid} from 'services/Match';
 import {getAccountPuuidByNameAndTag} from 'services/Account';
 import data from 'data/dummy.json';
 import MatchInfo from 'pages/Summoner/Match/MatchInfo';
 import ChampionImage from 'components/Image/ChampionRoundImage';
 import {getColorClass} from 'utils/CommonUtils';
 import useMenu from 'hooks/useMenu';
+import {CircularProgress} from '@mui/material';
 
 const Summoner = () => {
 	useMenu({menuName: 'SUMMONER'});
@@ -28,6 +29,8 @@ const Summoner = () => {
 	const [season, setSeason] = useState('S2024 S1');
 	const [matchList, setMatchList] = useState([]);
 	const [mostRankChampions, setMostRankchampions] = useState([...data.mostChampions.soloRank]);
+	const [selectedTab, setSelectedTab] = useState('전체');
+	const [isDone, setIsDone] = useState(false);
 	
 	useEffect(() => {
 		getMostRankChampions();
@@ -35,36 +38,39 @@ const Summoner = () => {
 	
 	useEffect(() => {
 		getInfo();
-	}, []);
+	}, [selectedTab]);
 	
 	const getInfo = async () => {
-		const [_gameName, _tag] = fullName.split('-');
-		const data = await getAccountPuuidByNameAndTag(_gameName, _tag);
-		const _summonerInfo = await getSummonerByPuuid(data.puuid);
-		setNameInfo({
-			gameName: data.gameName,
-			tag: data.tagLine,
-		});
-		setSummonerInfo(_summonerInfo);
-		const _leagueList = await getLeaguesBySummonerId(
-			_summonerInfo.id,
-		);
-		
-		_leagueList.map((league, index) => {
-			if (league.queueType.includes('SOLO')) {
-				setSoloRankInfo(league);
-			} else if (league.queueType.includes('FLEX')) {
-				setFlexRankInfo(league);
+		setIsDone(false);
+		if (selectedTab === '자유랭크') setMatchList([]);
+		else {
+			const [_gameName, _tag] = fullName.split('-');
+			const data = await getAccountPuuidByNameAndTag(_gameName, _tag);
+			const _summonerInfo = await getSummonerByPuuid(data.puuid);
+			setNameInfo({
+				gameName: data.gameName,
+				tag: data.tagLine,
+			});
+			setSummonerInfo(_summonerInfo);
+			const _leagueList = await getLeaguesBySummonerId(
+				_summonerInfo.id,
+			);
+			
+			_leagueList.map((league, index) => {
+				if (league.queueType.includes('SOLO')) {
+					setSoloRankInfo(league);
+				} else if (league.queueType.includes('FLEX')) {
+					setFlexRankInfo(league);
+				}
+			});
+			
+			const _matchList = await getMatchListByPuuid(_summonerInfo.puuid, 10);
+			if (_matchList.length > 0) {
+				setMatchList(_matchList);
 			}
-		});
-		
-		const _matchList = await getMatchListByPuuid(_summonerInfo.puuid, 10);
-		if (_matchList.length > 0) {
-			setMatchList(_matchList);
 		}
 		
-		const __matchList = await getMatchListBySummonerId(_summonerInfo.summonerId);
-		console.log(_summonerInfo.id, __matchList);
+		setIsDone(true);
 	};
 	
 	const getMostRankChampions = () => {
@@ -138,7 +144,10 @@ const Summoner = () => {
 							</div>
 							<div className={'prevName'}>Prev. {summonerInfo.name}</div>
 							<div>
-								<button className={'refreshHistory'}>전적 갱신</button>
+								<button className={'refreshHistory'} onClick={() => {
+									window.location.reload();
+								}}>전적 갱신
+								</button>
 							</div>
 						</div>
 					</div>
@@ -170,14 +179,20 @@ const Summoner = () => {
 						</div>
 					</div>
 					<section className={'matchesWrapper'}>
-						<MatchInfo />
-						<div className={'matchList'}>
-							{
-								matchList.length > 0 && matchList.map((matchId, index) => {
-									return <Match key={matchId} matchId={matchId} gameName={nameInfo.gameName} />;
-								})
-							}
-						</div>
+						<MatchInfo selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+						{
+							isDone ?
+								<div className={'matchList'}>
+									{
+										matchList.map((matchId, index) => {
+											return <Match key={matchId} matchId={matchId} gameName={nameInfo.gameName} />;
+										})
+									}
+								</div> :
+								<div className={'emptyList'}>
+									<CircularProgress />
+								</div>
+						}
 					</section>
 				</div>
 			</div>

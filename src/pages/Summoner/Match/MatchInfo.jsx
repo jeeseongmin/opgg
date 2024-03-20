@@ -3,7 +3,7 @@ import CircleChart from 'components/Chart/CircleChart';
 import ChampionImage from 'components/Image/ChampionRoundImage';
 import {getColorClass} from 'utils/CommonUtils';
 
-const MatchInfo = () => {
+const MatchInfo = ({selectedTab, setSelectedTab}) => {
 	const [championInfo, setChampionInfo] = useState([{
 		championId: 'Hwei',
 		win: 3,
@@ -81,42 +81,53 @@ const MatchInfo = () => {
 	return (
 		<section className={'matchInfoWrapper'}>
 			<div className={'tabs'}>
-				<button className={'selected'}>전체</button>
-				<button>솔로랭크</button>
-				<button>자유랭크</button>
+				<button className={selectedTab === '전체' && 'selected'} onClick={() => setSelectedTab('전체')}>전체</button>
+				<button className={selectedTab === '솔로랭크' && 'selected'} onClick={() => setSelectedTab('솔로랭크')}>솔로랭크</button>
+				<button className={selectedTab === '자유랭크' && 'selected'} onClick={() => setSelectedTab('자유랭크')}>자유랭크</button>
 			</div>
 			<div className={'matchInfo'}>
-				<div>
-					<p className={'subTitle'}>20전 14승 6패</p>
-					<div className={'matchHistory'}>
-						<CircleChart />
-						<div className={'killScore'}>
-							<p>4.5 / <span>3.0</span> / 5.3</p>
-							<p>3.27:1</p>
-							<p>킬관여 46%</p>
-						</div>
-					</div>
-				</div>
-				<div>
-					<p className={'subTitle'}>플레이한 챔피언(최근 20게임)</p>
-					<div className={'championHistory'}>
-						{
-							championInfo.map((_championInfo) => {
-								return <ChampionHistoryComponent key={_championInfo.championId} _championInfo={_championInfo} />;
-							})
-						}
-					</div>
-				</div>
-				<div>
-					<p className={'subTitle'}>선호 포지션(랭크)</p>
-					<div className={'positionHistory'}>
-						<BarChart position={'top'} />
-						<BarChart position={'jg'} />
-						<BarChart position={'mid'} />
-						<BarChart position={'ad'} />
-						<BarChart position={'sup'} />
-					</div>
-				</div>
+				{
+					selectedTab === '자유랭크' ?
+						<>
+							<div></div>
+							<div className={'emptySeason'}>기록된 전적이 없습니다.</div>
+							<div></div>
+						</> :
+						<>
+							<div>
+								<p className={'subTitle'}>20전 14승 6패</p>
+								<div className={'matchHistory'}>
+									<CircleChart />
+									<div className={'killScore'}>
+										<p>4.5 / <span>3.0</span> / 5.3</p>
+										<p>3.27:1</p>
+										<p>킬관여 46%</p>
+									</div>
+								</div>
+							</div>
+							<div>
+								<p className={'subTitle'}>플레이한 챔피언(최근 20게임)</p>
+								<div className={'championHistory'}>
+									{
+										championInfo.map((_championInfo) => {
+											return <ChampionHistoryComponent key={_championInfo.championId} _championInfo={_championInfo} />;
+										})
+									}
+								</div>
+							</div>
+							<div>
+								<p className={'subTitle'}>선호 포지션(랭크)</p>
+								<div className={'positionHistory'}>
+									<BarChart position={'top'} />
+									<BarChart position={'jg'} />
+									<BarChart position={'mid'} />
+									<BarChart position={'ad'} />
+									<BarChart position={'sup'} />
+								</div>
+							</div>
+						</>
+				}
+			
 			</div>
 		
 		</section>

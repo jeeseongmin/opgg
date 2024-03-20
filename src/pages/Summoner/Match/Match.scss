@@ -339,7 +339,7 @@
     display: flex;
     gap: 4px;
     padding: 4px;
-    border-bottom: 1px solid $main-gray300;
+    border-bottom: 1px solid $main-gray200;
 
     & > button {
       padding: 4px 12px;
@@ -366,6 +366,21 @@
     padding: 12px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
+    .emptySeason {
+      width: 100%;
+      height: 90px;
+      display: flex;
+      padding-top: 50px;
+      justify-content: center;
+      align-items: center;
+      color: $main-gray400;
+      font-size: 15px;
+      background-image: url("https://s-lol-web.op.gg/images/icon/icon-nodata.svg");
+      background-repeat: no-repeat;
+      background-position: 50% 30px;
+    }
+
 
     & > div > p:nth-of-type(2) {
       text-align: center;
