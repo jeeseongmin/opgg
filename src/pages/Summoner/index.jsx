@@ -12,8 +12,10 @@ import data from 'data/dummy.json';
 import MatchInfo from 'pages/Summoner/Match/MatchInfo';
 import ChampionImage from 'components/Image/ChampionRoundImage';
 import {getColorClass} from 'utils/CommonUtils';
+import useMenu from 'hooks/useMenu';
 
 const Summoner = () => {
+	useMenu({menuName: 'SUMMONER'});
 	const {fullName} = useParams();
 	
 	const [nameInfo, setNameInfo] = useState({
@@ -25,8 +27,7 @@ const Summoner = () => {
 	const [flexRankInfo, setFlexRankInfo] = useState({});
 	const [season, setSeason] = useState('S2024 S1');
 	const [matchList, setMatchList] = useState([]);
-	const [mostRankChampions, setMostRankchampions] = useState([...data.mostChampions.soloRank,
-	]);
+	const [mostRankChampions, setMostRankchampions] = useState([...data.mostChampions.soloRank]);
 	
 	useEffect(() => {
 		getMostRankChampions();
