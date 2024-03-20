@@ -1,4 +1,4 @@
-import {riotInstance} from 'modules/axios/interceptor';
+import {opggInstance, riotInstance} from 'modules/axios/interceptor';
 import dummy from 'data/dummy.json';
 
 export const getMatchListByPuuid = async (puuid, cnt) => {
@@ -18,6 +18,16 @@ export const getMatchById = async (matchID) => {
 		return res.data;
 	} catch (error) {
 		return dummy.matchInfo[matchID];
+	}
+};
+
+export const getMatchListBySummonerId = async () => {
+	try {
+		const {data} = await opggInstance.get(`https://op.gg/api/v1.0/internal/bypass/games/kr/summoners/4b4tvMrpRRDLvXAiQ_Vmh5yMOsD0R3GPGTUVfIanp1Httg?&limit=20&hl=ko_KR&game_type=total`);
+		return data;
+	} catch (error) {
+		console.log('error : ', error);
+		return 'error';
 	}
 };
 

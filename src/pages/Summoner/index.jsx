@@ -6,7 +6,7 @@ import Match from 'pages/Summoner/Match/index';
 import {getSummonerByPuuid} from 'services/Summoner';
 import {getLeaguesBySummonerId} from 'services/League';
 import {getSummonerIconByIconNum} from 'services/Image';
-import {getMatchListByPuuid} from 'services/Match';
+import {getMatchListByPuuid, getMatchListBySummonerId} from 'services/Match';
 import {getAccountPuuidByNameAndTag} from 'services/Account';
 import data from 'data/dummy.json';
 import MatchInfo from 'pages/Summoner/Match/MatchInfo';
@@ -37,7 +37,7 @@ const Summoner = () => {
 	}, []);
 	
 	const getInfo = async () => {
-		const [_gameName, _tag] = fullName;
+		const [_gameName, _tag] = fullName.split('-');
 		const data = await getAccountPuuidByNameAndTag(_gameName, _tag);
 		const _summonerInfo = await getSummonerByPuuid(data.puuid);
 		setNameInfo({
@@ -61,6 +61,9 @@ const Summoner = () => {
 		if (_matchList.length > 0) {
 			setMatchList(_matchList);
 		}
+		
+		const __matchList = await getMatchListBySummonerId(_summonerInfo.summonerId);
+		console.log(_summonerInfo.id, __matchList);
 	};
 	
 	const getMostRankChampions = () => {
