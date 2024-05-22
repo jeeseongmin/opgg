@@ -222,6 +222,65 @@
         border-radius: 5px;
       }
 
+      .itemWrapper {
+        position: relative;
+
+        .hide {
+          display: none;
+        }
+
+        .itemPopupWrapper {
+          position: absolute;
+          transform: translate(-45%, 0);
+          bottom: 43px;
+          min-width: 200px;
+          min-height: 200px;
+          height: auto;
+          z-index: 100;
+          transition: all ease 5s 3s;
+          display: flex;
+
+          .itemContentWrapper {
+            //padding: 10px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: $black;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: white;
+            font-size: 12px;
+
+            .itemContent {
+              padding: 10px;
+              display: flex;
+              height: auto;
+              flex-direction: column;
+              justify-content: space-between;
+
+              .itemName {
+                color: $mint;
+                font-weight: bold;
+              }
+
+            }
+
+          }
+
+          .itemArrow {
+            position: absolute;
+            bottom: -40px;
+            width: 0;
+            height: 0;
+            border-bottom: 20px solid transparent;
+            border-top: 20px solid $black;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+          }
+        }
+      }
+
       .emptyItem {
         height: 21px;
         width: 21px;
